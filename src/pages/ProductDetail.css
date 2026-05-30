@@ -1,0 +1,122 @@
+.detail-page {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 60px 0;
+}
+
+.detail-page > img {
+  width: 100%;
+  aspect-ratio: 1.1;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 8px solid #fff;
+  box-shadow: var(--shadow-lg);
+  animation: productImageIn 0.8s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.detail-page > div {
+  padding: 40px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: var(--glass-backdrop);
+}
+
+.detail-page .eyebrow {
+  color: var(--accent-gold-dark);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.detail-page h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  color: var(--primary-green-dark);
+  margin: 10px 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.detail-page p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.price-line {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--accent-gold-dark);
+  margin-bottom: 24px;
+}
+
+.price-line span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.detail-page ul {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+  margin: 0 0 32px;
+  border-top: 1px solid var(--border-light);
+  padding-top: 24px;
+}
+
+.detail-page ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.detail-page ul li::before {
+  content: "✓";
+  color: var(--primary-green-light);
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.detail-actions button {
+  flex: 1;
+}
+
+@keyframes productImageIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .detail-page {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 30px 0;
+  }
+
+  .detail-page > div {
+    padding: 24px;
+  }
+
+  .detail-actions {
+    flex-direction: column;
+  }
+}

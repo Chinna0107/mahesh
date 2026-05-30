@@ -1,0 +1,96 @@
+.auth-page {
+  min-height: calc(100vh - 180px);
+  background:
+    linear-gradient(120deg, rgba(244, 250, 238, 0.3), rgba(225, 242, 214, 0.72)),
+    url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1600&q=90') center/cover;
+  border-radius: var(--radius-lg);
+  margin-top: 28px;
+  display: grid;
+  place-items: center;
+  padding: 40px 18px;
+}
+
+.auth-card {
+  width: min(480px, 100%);
+  display: grid;
+  gap: 16px;
+  padding: 40px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: var(--glass-backdrop);
+}
+
+.auth-mark {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-md);
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary-green), var(--accent-gold));
+  font-size: 24px;
+  box-shadow: 0 8px 24px rgba(28, 78, 37, 0.2);
+  margin-bottom: 8px;
+}
+
+.auth-card label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background: var(--bg-cream);
+  color: var(--primary-green);
+  transition: all var(--transition-normal);
+}
+
+.auth-card label input {
+  border: 0;
+  background: transparent;
+  padding: 14px 0;
+  font-size: 15px;
+  width: 100%;
+}
+
+.auth-card label input:focus {
+  outline: none;
+}
+
+.auth-card label:focus-within {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 4px rgba(28, 78, 37, 0.12);
+  background: #fff;
+}
+
+.auth-card h1 {
+  font-size: 24px;
+  color: var(--primary-green-dark);
+  margin-bottom: 12px;
+}
+
+.auth-card .google {
+  background: #fff;
+}
+
+.auth-card .link-button {
+  color: var(--primary-green);
+  font-weight: 700;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.auth-card .link-button:hover {
+  color: var(--primary-green-light);
+  text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+  .auth-card {
+    padding: 24px;
+  }
+}

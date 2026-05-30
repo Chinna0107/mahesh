@@ -1,0 +1,81 @@
+.service-hero {
+  position: relative;
+  max-width: none;
+  margin-top: 28px;
+  padding: 76px 56px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  color: #fff;
+  background:
+    linear-gradient(120deg, rgba(15, 45, 21, 0.94), rgba(45, 115, 58, 0.82)),
+    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=90') center/cover;
+  box-shadow: var(--shadow-lg);
+}
+
+.service-hero h1 {
+  color: #fff;
+  font-size: clamp(20px, 2.5vw, 26px);
+  max-width: 800px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.service-hero .eyebrow {
+  color: var(--accent-gold);
+  margin-bottom: 12px;
+}
+
+.service-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: 100%;
+}
+
+.service-card img {
+  height: 210px;
+  border: 6px solid #fff;
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-slow);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  object-fit: cover;
+}
+
+.service-card:hover img {
+  transform: scale(1.04);
+}
+
+.service-card h3 {
+  font-family: var(--font-sans);
+  font-size: 19px;
+  font-weight: 800;
+  margin: 16px 0 8px;
+  color: var(--primary-green-dark);
+}
+
+.service-card p {
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.service-card a,
+.service-card button {
+  align-self: flex-start;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .service-hero {
+    padding: 40px 24px;
+  }
+}
