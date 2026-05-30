@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Routes, Route, useLocation, useSearchParams } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import './App.css'
 import './styles/premium.css'
 import Header from './components/Header'
@@ -12,6 +13,7 @@ import ProductDetail from './pages/ProductDetail'
 import Services from './pages/Services'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import PolicyPage from './pages/PolicyPage'
 import Auth from './pages/Auth'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
@@ -190,35 +192,47 @@ function App() {
             </div>
           </div>
         ) : (
-          <Routes>
-            <Route path="/" element={<Home products={adminProducts} addToCart={addToCart} redirectInquiry={redirectInquiry} cartIds={cartIds} />} />
-            <Route path="/products" element={<Products products={filteredProducts} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} addToCart={addToCart} cartIds={cartIds} />} />
-            <Route path="/product/:slug" element={<ProductDetail products={adminProducts} addToCart={addToCart} cartIds={cartIds} cart={cart} />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact redirectInquiry={redirectInquiry} />} />
-            <Route path="/signin" element={<Auth mode="signin" setSignedIn={setSignedIn} />} />
-            <Route path="/signup" element={<Auth mode="signup" setSignedIn={setSignedIn} />} />
-            <Route path="/cart" element={<Cart cart={cart} setCart={setCart} cartTotal={cartTotal} />} />
-            <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} cartTotal={cartTotal} user={user} />} />
-            <Route path="/admin" element={<AdminLayout user={user} />}>
-              <Route index element={<AdminDashboard products={adminProducts} redirectInquiry={redirectInquiry} />} />
-              <Route path="dashboard" element={<AdminDashboard products={adminProducts} redirectInquiry={redirectInquiry} />} />
-              <Route path="products" element={<AdminProducts products={adminProducts} deleteProduct={deleteProduct} />} />
-              <Route path="products/new" element={<AdminProductEdit products={adminProducts} addProduct={addProduct} />} />
-              <Route path="products/edit/:id" element={<AdminProductEdit products={adminProducts} updateProduct={updateProduct} />} />
-              <Route path="orders" element={<AdminOrders redirectInquiry={redirectInquiry} />} />
-              <Route path="customers" element={<AdminCustomers />} />
-              <Route path="reports" element={<AdminReports />} />
-            </Route>
-            <Route path="/account" element={<AccountLayout user={user} />}>
-              <Route index element={<CustomerProfile user={user} setUser={setUser} />} />
-              <Route path="profile" element={<CustomerProfile user={user} setUser={setUser} />} />
-              <Route path="my-orders" element={<CustomerOrders />} />
-              <Route path="tracking" element={<CustomerTracking />} />
-              <Route path="support" element={<CustomerSupport />} />
-            </Route>
-          </Routes>
+          <AnimatePresence mode="wait">
+            <motion.div
+              animate={{ opacity: 1, y: 0 }}
+              className="page-motion-shell"
+              exit={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 18 }}
+              key={location.pathname}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <Routes location={location}>
+                <Route path="/" element={<Home products={adminProducts} addToCart={addToCart} redirectInquiry={redirectInquiry} cartIds={cartIds} />} />
+                <Route path="/products" element={<Products products={filteredProducts} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} addToCart={addToCart} cartIds={cartIds} />} />
+                <Route path="/product/:slug" element={<ProductDetail products={adminProducts} addToCart={addToCart} cartIds={cartIds} cart={cart} />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact redirectInquiry={redirectInquiry} />} />
+                <Route path="/policies/:policySlug" element={<PolicyPage />} />
+                <Route path="/signin" element={<Auth mode="signin" setSignedIn={setSignedIn} />} />
+                <Route path="/signup" element={<Auth mode="signup" setSignedIn={setSignedIn} />} />
+                <Route path="/cart" element={<Cart cart={cart} setCart={setCart} cartTotal={cartTotal} />} />
+                <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} cartTotal={cartTotal} user={user} />} />
+                <Route path="/admin" element={<AdminLayout user={user} />}>
+                  <Route index element={<AdminDashboard products={adminProducts} redirectInquiry={redirectInquiry} />} />
+                  <Route path="dashboard" element={<AdminDashboard products={adminProducts} redirectInquiry={redirectInquiry} />} />
+                  <Route path="products" element={<AdminProducts products={adminProducts} deleteProduct={deleteProduct} />} />
+                  <Route path="products/new" element={<AdminProductEdit products={adminProducts} addProduct={addProduct} />} />
+                  <Route path="products/edit/:id" element={<AdminProductEdit products={adminProducts} updateProduct={updateProduct} />} />
+                  <Route path="orders" element={<AdminOrders redirectInquiry={redirectInquiry} />} />
+                  <Route path="customers" element={<AdminCustomers />} />
+                  <Route path="reports" element={<AdminReports />} />
+                </Route>
+                <Route path="/account" element={<AccountLayout user={user} />}>
+                  <Route index element={<CustomerProfile user={user} setUser={setUser} />} />
+                  <Route path="profile" element={<CustomerProfile user={user} setUser={setUser} />} />
+                  <Route path="my-orders" element={<CustomerOrders />} />
+                  <Route path="tracking" element={<CustomerTracking />} />
+                  <Route path="support" element={<CustomerSupport />} />
+                </Route>
+              </Routes>
+            </motion.div>
+          </AnimatePresence>
         )}
       </main>
       <Footer />

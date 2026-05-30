@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { categories } from '../data/storeData'
-import { InquiryForm, ProductCard, SectionTitle } from '../components/Shared'
-import { FaSeedling, FaBoxesPacking, FaTruck, FaPhone, FaEnvelope, FaWhatsapp, FaLocationDot } from 'react-icons/fa6'
+import { ProductCard, SectionTitle } from '../components/Shared'
+import { FaBagShopping, FaBookOpen, FaSeedling, FaBoxesPacking, FaTruck, FaPhone, FaEnvelope, FaLocationDot } from 'react-icons/fa6'
 import './Home.css'
 
 const customerReviews = [
@@ -41,6 +42,13 @@ const HERO_SLIDES = [
   }
 ]
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 }
+}
+
+const MotionLink = motion.create(Link)
+
 function Home({ products, addToCart, redirectInquiry, cartIds }) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
@@ -57,12 +65,7 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
   const activeSlides = isMobile 
     ? HERO_SLIDES.filter(slide => !slide.title.includes("Pure Desi Cow Milk"))
     : HERO_SLIDES
-
-  useEffect(() => {
-    if (currentSlide >= activeSlides.length) {
-      setCurrentSlide(0)
-    }
-  }, [activeSlides.length, currentSlide])
+  const normalizedSlide = currentSlide % activeSlides.length
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -76,28 +79,33 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
       <section className="home-hero-slider" aria-label="Mahesh farm fresh hero slider">
         {activeSlides.map((slide, idx) => (
           <div 
-            className={`hero-slide${idx === currentSlide ? ' active' : ''}`} 
+            className={`hero-slide${idx === normalizedSlide ? ' active' : ''}`} 
             key={idx}
             style={{ 
               backgroundImage: `linear-gradient(to bottom, rgba(15, 45, 21, 0.45), rgba(15, 45, 21, 0.75)), url(${slide.image})`,
-              display: idx === currentSlide ? 'flex' : 'none'
+              display: idx === normalizedSlide ? 'flex' : 'none'
             }}
           >
-            <div className="hero-slide-content">
+            <motion.div
+              animate={{ opacity: 1, y: 0 }}
+              className="hero-slide-content"
+              initial={{ opacity: 0, y: 24 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
               <h1>{slide.title}</h1>
               <p>{slide.subtitle}</p>
-              <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
-                <Link to="/products" className="primary" style={{ padding: '12px 24px', borderRadius: '30px', textDecoration: 'none', fontWeight: 'bold' }}>Shop Now</Link>
-                <Link to="/about" className="ghost" style={{ padding: '12px 24px', borderRadius: '30px', textDecoration: 'none', fontWeight: 'bold', border: '2px solid #fff', color: '#fff' }}>Our Story</Link>
+              <div className="hero-slide-actions">
+                <Link to="/products" className="primary hero-action-link"><FaBagShopping /> Shop Now</Link>
+                <Link to="/about" className="ghost hero-action-link hero-story-link"><FaBookOpen /> Our Story</Link>
               </div>
-            </div>
+            </motion.div>
           </div>
         ))}
         <div className="hero-slider-dots">
           {activeSlides.map((_, idx) => (
             <button 
               key={idx}
-              className={`hero-slider-dot${idx === currentSlide ? ' active' : ''}`}
+              className={`hero-slider-dot${idx === normalizedSlide ? ' active' : ''}`}
               onClick={() => setCurrentSlide(idx)}
               aria-label={`Go to slide ${idx + 1}`}
               type="button"
@@ -106,7 +114,14 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
         </div>
       </section>
 
-      <section className="banner-strip">
+      <motion.section
+        className="banner-strip"
+        initial="hidden"
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        variants={fadeUp}
+        viewport={{ once: true, amount: 0.5 }}
+        whileInView="visible"
+      >
         <div>
           <span>Daily milk delivery</span>
           <span>Wood pressed oils</span>
@@ -114,10 +129,17 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
           <span>Puja flowers</span>
           <span>Healthy family staples</span>
         </div>
-      </section>
+      </motion.section>
 
       <SectionTitle title="Popular Products" text="Freshly picked customer favorites from Mahesh." />
-      <div className="product-grid home-scroll-row">
+      <motion.div
+        className="product-grid home-scroll-row"
+        initial="hidden"
+        transition={{ staggerChildren: 0.06 }}
+        variants={fadeUp}
+        viewport={{ once: true, amount: 0.15 }}
+        whileInView="visible"
+      >
         <div className="home-scroll-row-inner">
           {products.map((product) => (
             <ProductCard
@@ -127,30 +149,37 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
               inCart={cartIds.includes(product.id)}
             />
           ))}
-          {/* Duplicate for seamless loop */}
-          {products.map((product) => (
-            <ProductCard
-              key={`dup-${product.id}`}
-              product={product}
-              addToCart={addToCart}
-              inCart={cartIds.includes(product.id)}
-            />
-          ))}
         </div>
-      </div>
+      </motion.div>
 
       <SectionTitle title="Shop by Category" text="Choose the everyday staples your family needs." />
       <div className="category-grid">
         {categories.map((category, index) => (
-          <Link className="category-card" to={`/products?category=${category.id}`} key={category.id}>
+          <MotionLink
+            className="category-card"
+            initial={{ opacity: 0, y: 18 }}
+            key={category.id}
+            to={`/products?category=${category.id}`}
+            transition={{ delay: index * 0.05, duration: 0.35, ease: 'easeOut' }}
+            viewport={{ once: true, amount: 0.35 }}
+            whileHover={{ y: -8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
             <img src={category.image} alt={category.name} />
             <small>0{index + 1}</small>
             <span>{category.name}</span>
-          </Link>
+          </MotionLink>
         ))}
       </div>
 
-      <section className="journey-showcase">
+      <motion.section
+        className="journey-showcase"
+        initial="hidden"
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        variants={fadeUp}
+        viewport={{ once: true, amount: 0.2 }}
+        whileInView="visible"
+      >
         <div className="journey-copy">
           <p className="eyebrow">The Journey Of</p>
           <h2>From local farms to your family table.</h2>
@@ -178,9 +207,16 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
           <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=900&q=80" alt="Farm journey" />
           <img src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=700&q=80" alt="Fresh farm produce" />
         </div>
-      </section>
+      </motion.section>
 
-      <section className="subscription">
+      <motion.section
+        className="subscription"
+        initial="hidden"
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        variants={fadeUp}
+        viewport={{ once: true, amount: 0.2 }}
+        whileInView="visible"
+      >
         <div className="subscription-copy">
           <p className="eyebrow">Join Our Subscription Plans</p>
           <h2>Daily Milk Delivery to Your Home</h2>
@@ -195,17 +231,31 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
         <div className="subscription-image-wrapper">
           <img className="subscription-below-image" src="https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?auto=format&fit=crop&w=1100&q=85" alt="Milk bottle delivery" />
         </div>
-      </section>
+      </motion.section>
 
-      <div className="home-divider-banner">
+      <motion.div
+        className="home-divider-banner"
+        initial="hidden"
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        variants={fadeUp}
+        viewport={{ once: true, amount: 0.35 }}
+        whileInView="visible"
+      >
         <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80" alt="Pure natural farmland" />
         <div className="divider-overlay">
           <h3>Purity, Freshness & Traditional Nutrition</h3>
           <p>Harvested at dawn, delivered to your door.</p>
         </div>
-      </div>
+      </motion.div>
 
-      <section className="contact-band">
+      <motion.section
+        className="contact-band"
+        initial="hidden"
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        variants={fadeUp}
+        viewport={{ once: true, amount: 0.2 }}
+        whileInView="visible"
+      >
         <div className="contact-band-copy">
           <p className="eyebrow">Purely Natural.</p>
           <h2>Part of Your Healthy Life.</h2>
@@ -241,7 +291,7 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
         <div className="contact-band-image-wrapper">
           <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=900&q=85" alt="Pure natural healthy produce" />
         </div>
-      </section>
+      </motion.section>
 
       <SectionTitle title="Customer Reviews" text="Real notes from families who trust our daily essentials." />
       <div className="reviews-marquee-container">

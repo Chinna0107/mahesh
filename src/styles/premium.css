@@ -373,7 +373,7 @@ button:disabled,
 .product-card-actions {
   display: flex;
   gap: 8px;
-  margin-top: auto;
+  margin-top: 6px;
 }
 
 .product-card-actions button,
@@ -388,7 +388,7 @@ button:disabled,
   display: flex;
   align-items: baseline;
   gap: 6px;
-  margin-bottom: 16px;
+  margin: 4px 0 10px;
 }
 
 @media (max-width: 768px) {

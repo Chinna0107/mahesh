@@ -22,6 +22,10 @@ main {
   margin: 0 auto;
 }
 
+.page-motion-shell {
+  min-height: 60vh;
+}
+
 .site-header {
   position: sticky;
   top: 0;

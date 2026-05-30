@@ -31,15 +31,15 @@ function Footer() {
       </div>
       <div className="footer-links-col">
         <b>Policies</b>
-        <Link to="#">Privacy Policy</Link>
-        <Link to="#">Refund Policy</Link>
-        <Link to="#">Shipping Policy</Link>
-        <Link to="#">Terms & Conditions</Link>
+        <Link to="/policies/privacy">Privacy Policy</Link>
+        <Link to="/policies/refund">Refund Policy</Link>
+        <Link to="/policies/shipping">Shipping Policy</Link>
+        <Link to="/policies/terms">Terms & Conditions</Link>
       </div>
       <div className="footer-links-col">
         <b>Contact</b>
-        <p><FaEnvelope /> info@mahesh.in</p>
-        <p><FaPhone /> +91 7416750834</p>
+        <p><FaEnvelope /> maheshbabun230@gmail.com</p>
+        <p><FaPhone /> +91 7406136807</p>
         <p><FaLocationDot /> Hyderabad, Telangana</p>
       </div>
       <div className="footer-bottom">Freshness delivered daily. Built for future backend integration.</div>

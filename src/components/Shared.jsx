@@ -1,14 +1,21 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { FaArrowRight, FaPaperPlane, FaXmark, FaCheck } from 'react-icons/fa6'
 import { slugify } from '../utils/slugify'
 
 export function SectionTitle({ title, text }) {
   return (
-    <div className="section-title">
+    <motion.div
+      className="section-title"
+      initial={{ opacity: 0, y: 18 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
+      viewport={{ once: true, amount: 0.35 }}
+      whileInView={{ opacity: 1, y: 0 }}
+    >
       <h2>{title}</h2>
       <p>{text}</p>
-    </div>
+    </motion.div>
   )
 }
 
@@ -34,7 +41,16 @@ export function ProductCard({ product, addToCart, inCart = false }) {
   }
 
   return (
-    <article className="product-card reveal-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
+    <motion.article
+      className="product-card reveal-card"
+      initial={{ opacity: 0, y: 22 }}
+      onClick={handleCardClick}
+      style={{ cursor: 'pointer' }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      viewport={{ once: true, amount: 0.2 }}
+      whileHover={{ y: -6 }}
+      whileInView={{ opacity: 1, y: 0 }}
+    >
       <div className="product-image-link" onClick={handleCardClick}>
         <img src={product.image} alt={product.name} />
       </div>
@@ -62,7 +78,7 @@ export function ProductCard({ product, addToCart, inCart = false }) {
           Details
         </button>
       </div>
-    </article>
+    </motion.article>
   )
 }
 

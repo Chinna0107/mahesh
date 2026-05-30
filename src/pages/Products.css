@@ -167,15 +167,15 @@
 .product-card p {
   font-size: 13.5px;
   line-height: 1.4;
-  margin-bottom: 12px;
-  flex-grow: 1;
+  margin: 0 0 6px;
+  flex-grow: 0;
 }
 
 .product-card div {
   display: flex;
   align-items: baseline;
   gap: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .product-card div b {
@@ -361,12 +361,17 @@
   }
 
   .products-area .product-card {
-    padding: 10px;
+    padding: 8px;
     border-radius: 16px;
   }
 
+  .products-area .product-image-link {
+    margin: -2px -2px 8px;
+  }
+
   .products-area .product-card img {
-    aspect-ratio: 1.1;
+    height: 168px;
+    aspect-ratio: auto;
     border-radius: 12px;
   }
 
