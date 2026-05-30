@@ -82,5 +82,5 @@ export function useProducts() {
     } catch {}
   }
 
-  return { products, loading, invalidate }
+  return { products, setProducts, loading, invalidate }
 }

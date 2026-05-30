@@ -865,6 +865,12 @@
   gap: 16px;
 }
 
+.modal-grid-cols-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
 .form-label {
   display: flex;
   flex-direction: column;
@@ -1108,7 +1114,8 @@
   }
   
   .modal-grid-cols-2,
-  .modal-grid-cols-3 {
+  .modal-grid-cols-3,
+  .modal-grid-cols-5 {
     grid-template-columns: 1fr;
   }
   
@@ -1139,3 +1146,255 @@
     padding: 0 16px;
   }
 }
+
+/* Premium Admin Modal Custom Styles */
+.admin-modal-tabs {
+  display: flex;
+  background: var(--bg-cream-dark);
+  border-bottom: 1px solid var(--border-light);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.admin-modal-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-modal-tab-btn {
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 10px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+.admin-modal-tab-btn svg {
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.admin-modal-tab-btn:hover {
+  color: var(--primary-green);
+  background: rgba(28, 78, 37, 0.03);
+}
+
+.admin-modal-tab-btn.active {
+  background: #fff;
+  color: var(--primary-green);
+  font-weight: 800;
+  border-bottom-color: var(--primary-green);
+}
+
+.admin-form-section {
+  background: var(--bg-cream);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.admin-section-header-row .modal-section-title {
+  margin-bottom: 0;
+}
+
+.admin-empty-card {
+  padding: 24px;
+  background: #fff;
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 13px;
+}
+
+/* Variants Editor */
+.admin-variants-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-variant-row-card {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 40px;
+  gap: 12px;
+  align-items: end;
+  background: #fff;
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.variant-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.variant-field-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.variant-delete-btn,
+.gallery-delete-btn,
+.ingredient-delete-btn,
+.review-delete-btn {
+  background: #fdf2f2;
+  color: #c5221f;
+  border: 1px solid #f8b4b4;
+  border-radius: var(--radius-sm);
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.variant-delete-btn:hover,
+.gallery-delete-btn:hover,
+.ingredient-delete-btn:hover,
+.review-delete-btn:hover {
+  background: #fce8e6;
+  border-color: #ea4335;
+}
+
+/* Gallery Editor */
+.admin-gallery-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-gallery-row-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  padding: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-gallery-preview {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+}
+
+.gallery-url-input {
+  flex: 1;
+}
+
+/* Ingredients Grid */
+.admin-ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.admin-ingredient-card {
+  display: flex;
+  gap: 8px;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-ingredient-card input {
+  flex: 1;
+}
+
+/* Reviews Editor */
+.admin-reviews-editor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-review-editor-card {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-meta-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 40px;
+  gap: 12px;
+  align-items: end;
+}
+
+.review-meta-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.review-meta-field span,
+.review-comment-field span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.review-comment-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.review-comment-field textarea {
+  min-height: 60px;
+}
+
+@media (max-width: 600px) {
+  .admin-variant-row-card,
+  .review-meta-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .variant-delete-btn,
+  .review-delete-btn {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+

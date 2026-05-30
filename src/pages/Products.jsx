@@ -1,13 +1,12 @@
 import { useState, useMemo } from 'react'
 import { categories } from '../data/storeData'
-import { ProductCard, SectionTitle, ProductDetailsModal } from '../components/Shared'
+import { ProductCard, SectionTitle } from '../components/Shared'
 import { FaXmark } from 'react-icons/fa6'
 import './Products.css'
 
 function Products({ products, selectedCategory, setSelectedCategory, addToCart, cartIds }) {
   const [activeTag, setActiveTag] = useState('all')
   const [sortBy, setSortBy] = useState('default')
-  const [selectedProduct, setSelectedProduct] = useState(null)
 
   const processedProducts = useMemo(() => {
     let result = [...products]
@@ -103,7 +102,6 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
                 product={product}
                 addToCart={addToCart}
                 inCart={cartIds.includes(product.id)}
-                onViewDetails={(prod) => setSelectedProduct(prod)}
               />
             ))}
           </div>
@@ -119,14 +117,7 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
 
 
 
-      {selectedProduct && (
-        <ProductDetailsModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-          addToCart={addToCart}
-          inCart={cartIds.includes(selectedProduct.id)}
-        />
-      )}
+      {/* ProductDetailsModal removed in favor of separate details page */}
     </>
   )
 }

@@ -18,6 +18,7 @@ import Checkout from './pages/Checkout'
 import AdminLayout from './pages/admin/AdminLayout'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminProducts from './pages/admin/AdminProducts'
+import AdminProductEdit from './pages/admin/AdminProductEdit'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminCustomers from './pages/admin/AdminCustomers'
 import AdminReports from './pages/admin/AdminReports'
@@ -51,7 +52,7 @@ function App() {
   })
   const [signedIn, setSignedIn] = useState(!!localStorage.getItem('mahesh_token'))
   const [user, setUser] = useState(null)
-  const { products: adminProducts, loading: loadingProducts } = useProducts()
+  const { products: adminProducts, setProducts: setAdminProducts, loading: loadingProducts, invalidate: invalidateProducts } = useProducts()
   const location = useLocation()
 
   // Save cart to localStorage when changed
@@ -136,6 +137,7 @@ function App() {
     try {
       const res = await api.products.create(newProduct)
       setAdminProducts((items) => [...items, res])
+      invalidateProducts()
       return true
     } catch (err) {
       alert(`Error adding product: ${err.message}`)
@@ -149,6 +151,7 @@ function App() {
       setAdminProducts((items) => items.map((item) => (
         item.id === id ? res : item
       )))
+      invalidateProducts()
       return true
     } catch (err) {
       alert(`Error updating product: ${err.message}`)
@@ -161,6 +164,7 @@ function App() {
     try {
       await api.products.delete(id)
       setAdminProducts((items) => items.filter((item) => item.id !== id))
+      invalidateProducts()
       return true
     } catch (err) {
       alert(`Error deleting product: ${err.message}`)
@@ -189,7 +193,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home products={adminProducts} addToCart={addToCart} redirectInquiry={redirectInquiry} cartIds={cartIds} />} />
             <Route path="/products" element={<Products products={filteredProducts} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} addToCart={addToCart} cartIds={cartIds} />} />
-            <Route path="/product/:id" element={<ProductDetail products={adminProducts} addToCart={addToCart} cartIds={cartIds} />} />
+            <Route path="/product/:slug" element={<ProductDetail products={adminProducts} addToCart={addToCart} cartIds={cartIds} cart={cart} />} />
             <Route path="/services" element={<Services />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact redirectInquiry={redirectInquiry} />} />
@@ -200,7 +204,9 @@ function App() {
             <Route path="/admin" element={<AdminLayout user={user} />}>
               <Route index element={<AdminDashboard products={adminProducts} redirectInquiry={redirectInquiry} />} />
               <Route path="dashboard" element={<AdminDashboard products={adminProducts} redirectInquiry={redirectInquiry} />} />
-              <Route path="products" element={<AdminProducts products={adminProducts} addProduct={addProduct} updateProduct={updateProduct} deleteProduct={deleteProduct} />} />
+              <Route path="products" element={<AdminProducts products={adminProducts} deleteProduct={deleteProduct} />} />
+              <Route path="products/new" element={<AdminProductEdit products={adminProducts} addProduct={addProduct} />} />
+              <Route path="products/edit/:id" element={<AdminProductEdit products={adminProducts} updateProduct={updateProduct} />} />
               <Route path="orders" element={<AdminOrders redirectInquiry={redirectInquiry} />} />
               <Route path="customers" element={<AdminCustomers />} />
               <Route path="reports" element={<AdminReports />} />

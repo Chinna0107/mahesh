@@ -1,0 +1,602 @@
+/* Admin Product Edit Full-Page Styling */
+.admin-product-edit-page {
+  animation: premiumPageIn 0.6s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header bar */
+.editor-header-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 16px;
+}
+
+.editor-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--primary-green);
+  cursor: pointer;
+  width: fit-content;
+  transition: all var(--transition-fast);
+}
+
+.editor-back-btn:hover {
+  background: var(--bg-green-soft);
+  transform: translateX(-4px);
+  border-color: var(--primary-green-light);
+}
+
+.editor-header-bar h2 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: var(--primary-green-dark);
+  margin: 0;
+}
+
+/* Grids and Main Layout */
+.editor-layout-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Sidebar Vertical Tabs */
+.editor-sidebar-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 90px;
+}
+
+.editor-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.editor-tab-btn svg {
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.editor-tab-btn:hover {
+  background: var(--bg-cream-dark);
+  color: var(--primary-green);
+  transform: translateX(4px);
+}
+
+.editor-tab-btn.active {
+  background: var(--primary-green);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.editor-tab-btn.active svg {
+  opacity: 1;
+}
+
+.editor-tab-btn.active:hover {
+  color: #fff;
+  transform: none;
+}
+
+/* Content Area */
+.editor-content-area {
+  min-height: 400px;
+}
+
+/* Bottom footer action buttons */
+.editor-footer-actions {
+  display: flex;
+  gap: 16px;
+  border-top: 1px solid var(--border-light);
+  padding-top: 24px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.large-btn {
+  min-height: 48px;
+  padding: 0 32px;
+  font-size: 15px;
+}
+
+/* =============================================
+   IMAGE UPLOAD ZONES & REPLACEMENT OVERLAY
+   ============================================= */
+
+/* Main image preview container */
+.editor-main-image-preview {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid var(--border-light);
+  background: var(--bg-cream-dark);
+  transition: border-color var(--transition-fast);
+}
+
+.editor-main-image-preview:hover {
+  border-color: var(--primary-green-light);
+}
+
+.editor-main-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Replace overlay that appears on hover */
+.editor-image-replace-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  cursor: pointer;
+}
+
+.editor-main-image-preview:hover .editor-image-replace-overlay,
+.editor-gallery-thumb:hover .editor-image-replace-overlay {
+  opacity: 1;
+}
+
+.editor-image-replace-overlay span {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.editor-image-replace-overlay svg {
+  color: #fff;
+  font-size: 20px;
+}
+
+/* Empty image upload dropzone */
+.editor-image-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 2px dashed var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 36px 24px;
+  background: var(--bg-cream);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.editor-image-dropzone:hover {
+  border-color: var(--primary-green-light);
+  background: var(--bg-green-soft);
+}
+
+.editor-image-dropzone svg {
+  font-size: 28px;
+  color: var(--primary-green-light);
+  opacity: 0.6;
+}
+
+.editor-image-dropzone .dropzone-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-green);
+}
+
+.editor-image-dropzone .dropzone-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Gallery thumbnails grid */
+.editor-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+}
+
+.editor-gallery-thumb {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid var(--border-light);
+  background: var(--bg-cream-dark);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.editor-gallery-thumb:hover {
+  border-color: var(--primary-green-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.editor-gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.editor-gallery-thumb .gallery-thumb-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: rgba(197, 34, 31, 0.9);
+  color: #fff;
+  border: none;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+.editor-gallery-thumb:hover .gallery-thumb-remove {
+  opacity: 1;
+}
+
+.editor-gallery-thumb .gallery-thumb-remove:hover {
+  background: #ea4335;
+  transform: scale(1.1);
+}
+
+/* Gallery add button tile */
+.editor-gallery-add-tile {
+  aspect-ratio: 1;
+  border: 2px dashed var(--border-light);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  background: var(--bg-cream);
+  transition: all var(--transition-fast);
+  color: var(--text-muted);
+}
+
+.editor-gallery-add-tile:hover {
+  border-color: var(--primary-green-light);
+  background: var(--bg-green-soft);
+  color: var(--primary-green);
+}
+
+.editor-gallery-add-tile svg {
+  font-size: 18px;
+}
+
+.editor-gallery-add-tile span {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* =============================================
+   TAGS CHIPS EDITOR
+   ============================================= */
+
+.editor-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  min-height: 48px;
+  align-items: center;
+}
+
+.editor-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 12px;
+  background: var(--bg-green-soft);
+  color: var(--primary-green-dark);
+  border: 1px solid var(--primary-green-light);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  transition: all var(--transition-fast);
+  animation: tagChipIn 0.3s ease both;
+}
+
+@keyframes tagChipIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.editor-tag-chip:hover {
+  background: #e6f4ea;
+  border-color: var(--primary-green);
+}
+
+.editor-tag-chip button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-green);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  font-size: 12px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.editor-tag-chip button:hover {
+  opacity: 1;
+  color: #c5221f;
+}
+
+.editor-tag-input-inline {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  background: transparent;
+  min-width: 120px;
+  flex: 1;
+  padding: 4px;
+  font-family: var(--font-sans);
+  color: var(--text-dark);
+}
+
+.editor-tag-input-inline::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.editor-tags-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* =============================================
+   TOAST NOTIFICATION
+   ============================================= */
+
+.editor-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  padding: 14px 24px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  z-index: 9999;
+  animation: toastSlideIn 0.4s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  max-width: 420px;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.editor-toast.success {
+  background: #137333;
+  color: #fff;
+}
+
+.editor-toast.error {
+  background: #c5221f;
+  color: #fff;
+}
+
+.editor-toast.info {
+  background: #1a73e8;
+  color: #fff;
+}
+
+.editor-toast-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.editor-toast-close:hover {
+  color: #fff;
+}
+
+/* =============================================
+   FORM VALIDATION INLINE ERRORS
+   ============================================= */
+
+.form-field-error {
+  font-size: 11px;
+  color: #c5221f;
+  font-weight: 600;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: errorShake 0.3s ease;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.form-label.has-error input,
+.form-label.has-error select,
+.form-label.has-error textarea {
+  border-color: #c5221f;
+  background: #fff5f5;
+}
+
+/* =============================================
+   UPLOADING STATE INDICATOR
+   ============================================= */
+
+.upload-progress-bar {
+  height: 3px;
+  background: var(--bg-cream-dark);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.upload-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-green), var(--accent-gold));
+  border-radius: 2px;
+  animation: uploadPulse 1.5s ease-in-out infinite;
+  width: 60%;
+}
+
+@keyframes uploadPulse {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+/* =============================================
+   RESPONSIVE OVERRIDES
+   ============================================= */
+
+@media (max-width: 900px) {
+  .editor-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .editor-sidebar-tabs {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: static;
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .editor-sidebar-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .editor-tab-btn {
+    min-width: auto;
+    justify-content: center;
+    padding: 10px 14px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .editor-tab-btn span {
+    display: none;
+  }
+
+  .editor-tab-btn svg {
+    font-size: 18px;
+  }
+
+  .editor-tab-btn:hover {
+    transform: none;
+  }
+
+  .editor-main-image-preview {
+    max-width: 100%;
+  }
+
+  .editor-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .editor-footer-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .large-btn {
+    width: 100%;
+  }
+
+  .editor-toast {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .editor-tab-btn {
+    padding: 8px 10px;
+  }
+}

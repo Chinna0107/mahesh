@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { categories } from '../data/storeData'
-import { InquiryForm, ProductCard, SectionTitle, ProductDetailsModal } from '../components/Shared'
+import { InquiryForm, ProductCard, SectionTitle } from '../components/Shared'
 import { FaSeedling, FaBoxesPacking, FaTruck, FaPhone, FaEnvelope, FaWhatsapp, FaLocationDot } from 'react-icons/fa6'
 import './Home.css'
 
@@ -42,20 +42,39 @@ const HERO_SLIDES = [
 ]
 
 function Home({ products, addToCart, redirectInquiry, cartIds }) {
-  const [selectedProduct, setSelectedProduct] = useState(null)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const activeSlides = isMobile 
+    ? HERO_SLIDES.filter(slide => !slide.title.includes("Pure Desi Cow Milk"))
+    : HERO_SLIDES
+
+  useEffect(() => {
+    if (currentSlide >= activeSlides.length) {
+      setCurrentSlide(0)
+    }
+  }, [activeSlides.length, currentSlide])
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % HERO_SLIDES.length)
+      setCurrentSlide(prev => (prev + 1) % activeSlides.length)
     }, 4500)
     return () => clearInterval(timer)
-  }, [])
+  }, [activeSlides.length])
 
   return (
     <>
       <section className="home-hero-slider" aria-label="Mahesh farm fresh hero slider">
-        {HERO_SLIDES.map((slide, idx) => (
+        {activeSlides.map((slide, idx) => (
           <div 
             className={`hero-slide${idx === currentSlide ? ' active' : ''}`} 
             key={idx}
@@ -75,7 +94,7 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
           </div>
         ))}
         <div className="hero-slider-dots">
-          {HERO_SLIDES.map((_, idx) => (
+          {activeSlides.map((_, idx) => (
             <button 
               key={idx}
               className={`hero-slider-dot${idx === currentSlide ? ' active' : ''}`}
@@ -106,7 +125,6 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
               product={product}
               addToCart={addToCart}
               inCart={cartIds.includes(product.id)}
-              onViewDetails={(prod) => setSelectedProduct(prod)}
             />
           ))}
           {/* Duplicate for seamless loop */}
@@ -116,7 +134,6 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
               product={product}
               addToCart={addToCart}
               inCart={cartIds.includes(product.id)}
-              onViewDetails={(prod) => setSelectedProduct(prod)}
             />
           ))}
         </div>
@@ -246,14 +263,7 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
         </div>
       </div>
 
-      {selectedProduct && (
-        <ProductDetailsModal
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-          addToCart={addToCart}
-          inCart={cartIds.includes(selectedProduct.id)}
-        />
-      )}
+      {/* Details modal removed in favor of separate page details */}
     </>
   )
 }

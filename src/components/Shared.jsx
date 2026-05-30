@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaArrowRight, FaPaperPlane, FaXmark, FaCheck } from 'react-icons/fa6'
+import { slugify } from '../utils/slugify'
 
 export function SectionTitle({ title, text }) {
   return (
@@ -24,16 +25,16 @@ export function SplitSection({ eyebrow, title, text, image }) {
   )
 }
 
-export function ProductCard({ product, addToCart, inCart = false, onViewDetails }) {
+export function ProductCard({ product, addToCart, inCart = false }) {
+  const navigate = useNavigate()
+
   const handleCardClick = (e) => {
-    if (onViewDetails) {
-      e.preventDefault()
-      onViewDetails(product)
-    }
+    e.preventDefault()
+    navigate(`/product/${slugify(product.name_english || product.name)}`)
   }
 
   return (
-    <article className="product-card reveal-card" onClick={handleCardClick} style={{ cursor: onViewDetails ? 'pointer' : 'default' }}>
+    <article className="product-card reveal-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       <div className="product-image-link" onClick={handleCardClick}>
         <img src={product.image} alt={product.name} />
       </div>
@@ -55,7 +56,7 @@ export function ProductCard({ product, addToCart, inCart = false, onViewDetails 
         </button>
         <button 
           className="ghost small details-btn" 
-          onClick={() => onViewDetails ? onViewDetails(product) : null} 
+          onClick={() => navigate(`/product/${slugify(product.name_english || product.name)}`)} 
           type="button"
         >
           Details
