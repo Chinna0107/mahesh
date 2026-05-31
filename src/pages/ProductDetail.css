@@ -294,17 +294,40 @@
 
 /* Add/Buy Actions layout */
 .detail-page-actions {
-  display: flex;
+  display: grid;
   gap: 16px;
   margin-top: 28px;
 }
 
 .action-btn-main {
-  flex: 1.3;
+  width: 100%;
+  padding: 16px !important;
+  font-size: 16px !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.buy-wishlist-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
 }
 
 .action-btn-buy {
-  flex: 0.7;
+  flex: 1;
+  padding: 14px !important;
+  font-size: 15px !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.wishlist-action-btn {
+  transition: all var(--transition-fast);
+}
+
+.wishlist-action-btn:hover {
+  transform: scale(1.05);
+  border-color: var(--primary-green-light) !important;
+  background: var(--bg-green-soft) !important;
 }
 
 /* Quick specs cards */

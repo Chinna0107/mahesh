@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { FaEnvelope, FaInstagram, FaLocationDot, FaPhone, FaWhatsapp } from 'react-icons/fa6'
+import { ScrollReveal } from './Shared'
 import logo from '../assets/logo.png'
 import './Footer.css'
 
 function Footer() {
   return (
-    <footer className="site-footer">
+    <ScrollReveal className="site-footer">
       <div className="footer-brand">
         <img src={logo} alt="Mahesh" />
         <h2>Mahesh</h2>
@@ -43,7 +44,7 @@ function Footer() {
         <p><FaLocationDot /> Hyderabad, Telangana</p>
       </div>
       <div className="footer-bottom">Freshness delivered daily. Built for future backend integration.</div>
-    </footer>
+    </ScrollReveal>
   )
 }
 

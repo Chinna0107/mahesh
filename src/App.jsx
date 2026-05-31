@@ -4,6 +4,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import './App.css'
 import './styles/premium.css'
 import Header from './components/Header'
+import TopTicker from './components/TopTicker'
+import MobileBottomNav from './components/MobileBottomNav'
+import TrustBadges from './components/TrustBadges'
 import AdminHeader from './components/AdminHeader'
 import Footer from './components/Footer'
 import Home from './pages/Home'
@@ -13,9 +16,11 @@ import ProductDetail from './pages/ProductDetail'
 import Services from './pages/Services'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import Faq from './pages/Faq'
 import PolicyPage from './pages/PolicyPage'
 import Auth from './pages/Auth'
 import Cart from './pages/Cart'
+import Wishlist from './pages/Wishlist'
 import Checkout from './pages/Checkout'
 import AdminLayout from './pages/admin/AdminLayout'
 import AdminDashboard from './pages/admin/AdminDashboard'
@@ -52,15 +57,29 @@ function App() {
       return []
     }
   })
+  const [searchQuery, setSearchQuery] = useState('')
   const [signedIn, setSignedIn] = useState(!!localStorage.getItem('mahesh_token'))
   const [user, setUser] = useState(null)
   const { products: adminProducts, setProducts: setAdminProducts, loading: loadingProducts, invalidate: invalidateProducts } = useProducts()
   const location = useLocation()
 
+  const [wishlist, setWishlist] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('mahesh_wishlist') || '[]')
+    } catch {
+      return []
+    }
+  })
+
   // Save cart to localStorage when changed
   useEffect(() => {
     localStorage.setItem('mahesh_cart', JSON.stringify(cart))
   }, [cart])
+
+  // Save wishlist to localStorage when changed
+  useEffect(() => {
+    localStorage.setItem('mahesh_wishlist', JSON.stringify(wishlist))
+  }, [wishlist])
 
   // Restore session / fetch user profile on load or auth change
   useEffect(() => {
@@ -86,10 +105,19 @@ function App() {
 
   const filteredProducts = useMemo(() => {
     if (!adminProducts) return []
-    return selectedCategory === 'all'
+    let result = selectedCategory === 'all'
       ? adminProducts
       : adminProducts.filter((product) => product.category === selectedCategory)
-  }, [adminProducts, selectedCategory])
+    
+    if (searchQuery) {
+      result = result.filter(p => 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        (p.name_english && p.name_english.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+    }
+    return result
+  }, [adminProducts, selectedCategory, searchQuery])
 
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0)
   const cartIds = useMemo(() => cart.map((item) => item.id), [cart])
@@ -128,6 +156,17 @@ function App() {
         unit: itemUnit, 
         qty: 1 
       }]
+    })
+  }
+
+  const toggleWishlist = (product) => {
+    setWishlist((items) => {
+      const exists = items.some(item => item.id === product.id)
+      if (exists) {
+        return items.filter(item => item.id !== product.id)
+      } else {
+        return [...items, product]
+      }
     })
   }
 
@@ -181,9 +220,13 @@ function App() {
       {isAdminRoute ? (
         <AdminHeader user={user} setSignedIn={setSignedIn} />
       ) : (
-        <Header signedIn={signedIn} user={user} cartCount={cart.length} setSignedIn={setSignedIn} />
+        <>
+          <TopTicker />
+          <Header signedIn={signedIn} user={user} cartCount={cart.length} setSignedIn={setSignedIn} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <MobileBottomNav cartCount={cart.length} wishlistCount={wishlist.length} signedIn={signedIn} setSignedIn={setSignedIn} user={user} />
+        </>
       )}
-      <main>
+      <main className={isAdminRoute ? '' : 'with-mobile-nav'}>
         {loadingProducts ? (
           <div style={{ display: 'grid', placeItems: 'center', minHeight: '60vh', color: '#17351f' }}>
             <div>
@@ -194,24 +237,26 @@ function App() {
         ) : (
           <AnimatePresence mode="wait">
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1 }}
               className="page-motion-shell"
-              exit={{ opacity: 0, y: 12 }}
-              initial={{ opacity: 0, y: 18 }}
+              exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
               key={location.pathname}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
             >
               <Routes location={location}>
-                <Route path="/" element={<Home products={adminProducts} addToCart={addToCart} redirectInquiry={redirectInquiry} cartIds={cartIds} />} />
-                <Route path="/products" element={<Products products={filteredProducts} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} addToCart={addToCart} cartIds={cartIds} />} />
-                <Route path="/product/:slug" element={<ProductDetail products={adminProducts} addToCart={addToCart} cartIds={cartIds} cart={cart} />} />
+                <Route path="/" element={<Home products={adminProducts} addToCart={addToCart} redirectInquiry={redirectInquiry} cartIds={cartIds} wishlist={wishlist} toggleWishlist={toggleWishlist} />} />
+                <Route path="/products" element={<Products products={filteredProducts} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} addToCart={addToCart} cartIds={cartIds} wishlist={wishlist} toggleWishlist={toggleWishlist} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />} />
+                <Route path="/product/:slug" element={<ProductDetail products={adminProducts} addToCart={addToCart} cartIds={cartIds} cart={cart} wishlist={wishlist} toggleWishlist={toggleWishlist} />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact redirectInquiry={redirectInquiry} />} />
+                <Route path="/faq" element={<Faq />} />
                 <Route path="/policies/:policySlug" element={<PolicyPage />} />
                 <Route path="/signin" element={<Auth mode="signin" setSignedIn={setSignedIn} />} />
                 <Route path="/signup" element={<Auth mode="signup" setSignedIn={setSignedIn} />} />
                 <Route path="/cart" element={<Cart cart={cart} setCart={setCart} cartTotal={cartTotal} />} />
+                <Route path="/wishlist" element={<Wishlist wishlist={wishlist} toggleWishlist={toggleWishlist} addToCart={addToCart} cartIds={cartIds} />} />
                 <Route path="/checkout" element={<Checkout cart={cart} setCart={setCart} cartTotal={cartTotal} user={user} />} />
                 <Route path="/admin" element={<AdminLayout user={user} />}>
                   <Route index element={<AdminDashboard products={adminProducts} redirectInquiry={redirectInquiry} />} />
@@ -235,6 +280,7 @@ function App() {
           </AnimatePresence>
         )}
       </main>
+      {!isAdminRoute && <TrustBadges />}
       <Footer />
     </div>
   )

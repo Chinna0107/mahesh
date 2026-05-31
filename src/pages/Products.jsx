@@ -1,10 +1,9 @@
 import { useState, useMemo } from 'react'
 import { categories } from '../data/storeData'
-import { ProductCard, SectionTitle } from '../components/Shared'
-import { FaXmark } from 'react-icons/fa6'
+import { ProductCard, SectionTitle, ScrollReveal } from '../components/Shared'
 import './Products.css'
 
-function Products({ products, selectedCategory, setSelectedCategory, addToCart, cartIds }) {
+function Products({ products, selectedCategory, setSelectedCategory, addToCart, cartIds, wishlist = [], toggleWishlist }) {
   const [activeTag, setActiveTag] = useState('all')
   const [sortBy, setSortBy] = useState('default')
 
@@ -14,8 +13,8 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
     // Tag filtering
     if (activeTag === 'popular') {
       result = result.filter(p => p.badge?.toLowerCase().includes('best') || p.badge?.toLowerCase().includes('seller'))
-    } else if (activeTag === 'under300') {
-      result = result.filter(p => p.price <= 300)
+    } else if (activeTag === 'new') {
+      result = [...result].sort((a, b) => b.id - a.id).slice(0, 5)
     } else if (activeTag === 'daily') {
       result = result.filter(p => p.category === 'milk' || p.badge?.toLowerCase().includes('daily'))
     } else if (activeTag === 'organic') {
@@ -46,16 +45,17 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
   return (
     <>
       <section className="page-layout">
+        {/* Removed ScrollReveal from filters to prevent sticky + transform conflicts on mobile */}
         <aside className="filters">
-          <h2>Categories</h2>
+          <h2 className="desktop-only">Categories</h2>
           <div className="category-filter-strip">
             <button className={selectedCategory === 'all' ? 'active' : ''} onClick={() => setSelectedCategory('all')} type="button">
-              <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=120&q=80" alt="All" />
+              <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=120&q=80" alt="" />
               <span>All Products</span>
             </button>
             {categories.map((category) => (
               <button className={selectedCategory === category.id ? 'active' : ''} key={category.id} onClick={() => setSelectedCategory(category.id)} type="button">
-                <img src={category.image} alt={category.name} />
+                <img src={category.image} alt="" />
                 <span>{category.name}</span>
               </button>
             ))}
@@ -81,11 +81,11 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
           </div>
 
           <div className="filter-panel tags-panel">
-            <b>Filters</b>
+            <b className="desktop-only">Filters</b>
             <div className="tags-filter-strip">
               <button className={activeTag === 'all' ? 'active' : ''} onClick={() => setActiveTag('all')} type="button">All</button>
               <button className={activeTag === 'popular' ? 'active' : ''} onClick={() => setActiveTag('popular')} type="button">Popular</button>
-              <button className={activeTag === 'under300' ? 'active' : ''} onClick={() => setActiveTag('under300')} type="button">Under ₹300</button>
+              <button className={activeTag === 'new' ? 'active' : ''} onClick={() => setActiveTag('new')} type="button">New Arrivals</button>
               <button className={activeTag === 'daily' ? 'active' : ''} onClick={() => setActiveTag('daily')} type="button">Daily Delivery</button>
               <button className={activeTag === 'organic' ? 'active' : ''} onClick={() => setActiveTag('organic')} type="button">Organic / Traditional</button>
             </div>
@@ -93,7 +93,9 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
         </aside>
 
         <div className="products-area">
-          <SectionTitle title="Farm Fresh Products" text="Browse milk, flowers, oils, vegetables, and natural home staples." />
+          <div className="desktop-only">
+            <SectionTitle title="Farm Fresh Products" text="Browse milk, flowers, oils, vegetables, and natural home staples." />
+          </div>
           
           <div className="product-grid">
             {processedProducts.map((product) => (
@@ -102,6 +104,8 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
                 product={product}
                 addToCart={addToCart}
                 inCart={cartIds.includes(product.id)}
+                wishlist={wishlist}
+                toggleWishlist={toggleWishlist}
               />
             ))}
           </div>
@@ -114,10 +118,6 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
           )}
         </div>
       </section>
-
-
-
-      {/* ProductDetailsModal removed in favor of separate details page */}
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { FaClock, FaEnvelope, FaLocationDot, FaMapLocationDot, FaPhone, FaRegCircleQuestion, FaTruck, FaWhatsapp } from 'react-icons/fa6'
-import { InquiryForm } from '../components/Shared'
+import { InquiryForm, ScrollReveal } from '../components/Shared'
 import './Contact.css'
 
 const faqs = [
@@ -23,7 +23,7 @@ const faqs = [
 function Contact({ redirectInquiry }) {
   return (
     <>
-      <section className="contact-page premium-contact">
+      <ScrollReveal className="contact-page premium-contact">
         <div className="contact-details">
           <p className="eyebrow">Get In Touch</p>
           <h1>Have questions about our products or delivery?</h1>
@@ -42,9 +42,9 @@ function Contact({ redirectInquiry }) {
           <p className="eyebrow">Quick Connect</p>
           <InquiryForm redirectInquiry={redirectInquiry} title="Send us a Message" showEmail />
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="contact-map-section">
+      <ScrollReveal className="contact-map-section" delay={0.1}>
         <div className="contact-map-header">
           <div>
             <p className="eyebrow">Find Us</p>
@@ -60,9 +60,9 @@ function Contact({ redirectInquiry }) {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
-      </section>
+      </ScrollReveal>
 
-      <section className="contact-faq-section">
+      <ScrollReveal className="contact-faq-section" delay={0.2}>
         <div className="contact-faq-heading">
           <p className="eyebrow">FAQs</p>
           <h2>Common questions before you order.</h2>
@@ -76,7 +76,7 @@ function Contact({ redirectInquiry }) {
             </article>
           ))}
         </div>
-      </section>
+      </ScrollReveal>
     </>
   )
 }

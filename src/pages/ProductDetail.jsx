@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { categories } from '../data/storeData'
-import { FaArrowLeft, FaClock, FaUsers, FaCheck, FaStar, FaFire, FaCartShopping } from 'react-icons/fa6'
+import { FaArrowLeft, FaClock, FaUsers, FaCheck, FaStar, FaFire, FaCartShopping, FaHeart, FaRegHeart } from 'react-icons/fa6'
 import { slugify } from '../utils/slugify'
+import { ScrollReveal } from '../components/Shared'
 import './ProductDetail.css'
 
 const SPICE_LABELS = [
@@ -12,7 +13,7 @@ const SPICE_LABELS = [
   { label: 'Hot & Spicy', emoji: '🌶️🌶️🌶️', color: 'spice-hot' },
 ]
 
-function ProductDetail({ products, addToCart, cartIds, cart = [] }) {
+function ProductDetail({ products, addToCart, cartIds, cart = [], wishlist = [], toggleWishlist }) {
   const { slug } = useParams()
   const navigate = useNavigate()
   const [selectedImage, setSelectedImage] = useState(0)
@@ -121,7 +122,7 @@ function ProductDetail({ products, addToCart, cartIds, cart = [] }) {
         </div>
 
         {/* Right Column: Info Panel */}
-        <div className="info-section">
+        <ScrollReveal className="info-section">
           <div className="info-header">
             <span className="category-tag">
               {categories.find((c) => c.id === product.category)?.name || product.category}
@@ -155,26 +156,32 @@ function ProductDetail({ products, addToCart, cartIds, cart = [] }) {
           {variants.length > 0 && (
             <div className="variant-selection-block">
               <h3>Select Quantity</h3>
-              <div className="variants-grid">
+              <select 
+                className="variant-dropdown"
+                value={selectedVariant?.quantity}
+                onChange={(e) => setSelectedVariant(variants.find(v => v.quantity === e.target.value))}
+                style={{
+                  width: '100%',
+                  padding: '12px 16px',
+                  borderRadius: '12px',
+                  border: '1.5px solid var(--border-focus)',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  background: 'var(--bg-cream)',
+                  marginTop: '8px',
+                  cursor: 'pointer',
+                  color: 'var(--text-dark)'
+                }}
+              >
                 {variants.map((v, i) => (
-                  <button 
-                    key={i} 
-                    onClick={() => setSelectedVariant(v)}
-                    className={`variant-card-btn${selectedVariant === v ? ' active' : ''}`}
-                    type="button"
-                  >
-                    <span className="variant-unit">{v.quantity}</span>
-                    <span className="variant-price">₹{v.price}</span>
-                    {v.mrp && Number(v.mrp) > Number(v.price) && (
-                      <span className="variant-mrp">₹{v.mrp}</span>
-                    )}
-                  </button>
+                  <option key={i} value={v.quantity}>
+                    {v.quantity} — ₹{v.price} {v.mrp > v.price ? `(Save ₹${v.mrp - v.price})` : ''}
+                  </option>
                 ))}
-              </div>
+              </select>
             </div>
           )}
 
-          {/* Action Buttons */}
           <div className="detail-page-actions">
             <button 
               className="primary action-btn-main" 
@@ -183,13 +190,36 @@ function ProductDetail({ products, addToCart, cartIds, cart = [] }) {
             >
               <FaCartShopping /> {isItemInCart ? 'Add More to Cart' : 'Add to Cart'}
             </button>
-            <button 
-              className="ghost action-btn-buy" 
-              onClick={handleBuyNow} 
-              type="button"
-            >
-              Buy Now
-            </button>
+            
+            <div className="buy-wishlist-row">
+              <button 
+                className="wishlist-action-btn"
+                onClick={() => toggleWishlist && toggleWishlist(product)}
+                type="button"
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '12px',
+                  border: '1px solid var(--border-light)',
+                  background: '#fff',
+                  display: 'grid',
+                  placeItems: 'center',
+                  cursor: 'pointer',
+                  fontSize: '20px',
+                  color: wishlist.some(item => item.id === product.id) ? '#e63946' : 'var(--text-muted)'
+                }}
+              >
+                {wishlist.some(item => item.id === product.id) ? <FaHeart /> : <FaRegHeart />}
+              </button>
+              <button 
+                className="ghost action-btn-buy" 
+                onClick={handleBuyNow} 
+                type="button"
+                style={{ flex: 1 }}
+              >
+                Buy Now
+              </button>
+            </div>
           </div>
 
           {/* Quick Specifications */}
@@ -284,11 +314,11 @@ function ProductDetail({ products, addToCart, cartIds, cart = [] }) {
             <li><FaCheck className="check-bullet" /> 100% natural, chemical free & pure quality</li>
             <li><FaCheck className="check-bullet" /> Sourced responsibly from local farms</li>
           </ul>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Ratings & Reviews */}
-      <section className="reviews-section-detail">
+      <ScrollReveal className="reviews-section-detail">
         <h2 className="reviews-section-title">
           Customer Ratings & Reviews
           <span className="reviews-count-badge">({product.reviews?.length || 0})</span>
@@ -332,11 +362,11 @@ function ProductDetail({ products, addToCart, cartIds, cart = [] }) {
             )}
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Similar products */}
       {similarProducts.length > 0 && (
-        <section className="similar-products-section">
+        <ScrollReveal className="similar-products-section" delay={0.1}>
           <h2>People Also Buy</h2>
           <div className="similar-products-grid">
             {similarProducts.map((p) => {
@@ -361,7 +391,7 @@ function ProductDetail({ products, addToCart, cartIds, cart = [] }) {
               )
             })}
           </div>
-        </section>
+        </ScrollReveal>
       )}
     </div>
   )

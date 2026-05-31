@@ -1,0 +1,133 @@
+.faq-page {
+  padding: 60px max(24px, calc((100vw - 1280px) / 2));
+  background: var(--bg-cream);
+  min-height: 80vh;
+}
+
+.faq-header-hero {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.faq-content-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+  align-items: start;
+}
+
+.faq-category-block {
+  margin-bottom: 40px;
+}
+
+.faq-category-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--primary-green-dark);
+}
+
+.faq-category-title svg {
+  font-size: 24px;
+  color: var(--primary-green);
+}
+
+.faq-category-title h2 {
+  font-size: 24px;
+  font-family: var(--font-serif);
+}
+
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-accordion-item {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.faq-accordion-item:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(28, 78, 37, 0.15);
+}
+
+.faq-accordion-header {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-dark);
+}
+
+.faq-accordion-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  padding-right: 20px;
+}
+
+.faq-chevron {
+  color: var(--primary-green);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.faq-accordion-item.open .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-accordion-body {
+  padding: 0 24px;
+  background: #fff;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.faq-accordion-item.open .faq-accordion-body {
+  padding-bottom: 24px;
+}
+
+.faq-support-card {
+  background: #fff;
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--glass-border);
+  position: sticky;
+  top: 100px;
+}
+
+.faq-support-card h3 {
+  color: var(--primary-green-dark);
+  font-family: var(--font-serif);
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.faq-support-card p {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .faq-content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-support-card {
+    position: static;
+  }
+}

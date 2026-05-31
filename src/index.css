@@ -1,39 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
-  --primary-green: #1c4e25;
-  --primary-green-dark: #0f2d15;
-  --primary-green-light: #2d733a;
-  --accent-gold: #c38426;
-  --accent-gold-dark: #986315;
-  --bg-cream: #fafcf8;
-  --bg-cream-dark: #f0f5eb;
-  --bg-green-soft: #edf4e7;
-  --text-dark: #1b261d;
-  --text-muted: #5e6f60;
-  --border-light: #e1e9dc;
-  --border-focus: #b5c9af;
+  /* Ultra-Premium Vibrant Greens */
+  --primary-green: #0d5c2b; /* Slightly more vibrant than before */
+  --primary-green-dark: #041f0d;
+  --primary-green-light: #1b8a43;
+  --primary-green-vibrant: #1fb355;
+  /* Luxurious Metallic Gold */
+  --accent-gold: #e2b931;
+  --accent-gold-dark: #c0961b;
+  /* Crisp, Clean Backgrounds */
+  --bg-cream: #fcfdfc;
+  --bg-cream-dark: #f0f6f1;
+  --bg-green-soft: #e7f2e9;
+  /* Deep Rich Text */
+  --text-dark: #050a06;
+  --text-muted: #3d4f40;
+  /* Refined Borders */
+  --border-light: #d6e0d8;
+  --border-focus: #9bc0a3;
   
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
   
-  --shadow-sm: 0 4px 12px rgba(28, 78, 37, 0.04);
-  --shadow-md: 0 12px 30px rgba(28, 78, 37, 0.08);
-  --shadow-lg: 0 24px 64px rgba(28, 78, 37, 0.12);
-  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  /* Softer, more diffuse premium shadows */
+  --shadow-sm: 0 4px 16px rgba(13, 92, 43, 0.05);
+  --shadow-md: 0 16px 40px rgba(13, 92, 43, 0.08);
+  --shadow-lg: 0 32px 80px rgba(13, 92, 43, 0.12);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.8);
   
-  --glass-bg: rgba(255, 255, 255, 0.82);
-  --glass-border: rgba(225, 233, 220, 0.6);
-  --glass-backdrop: blur(16px);
+  /* Elegant Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-backdrop: blur(28px);
   
-  --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 28px;
+  /* Smoother Radii */
+  --radius-sm: 14px;
+  --radius-md: 22px;
+  --radius-lg: 38px;
   --radius-full: 9999px;
   
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.2s ease-out;
+  --transition-normal: 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-slow: 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 html {
@@ -45,7 +54,7 @@ body {
   min-width: 320px;
   font-family: var(--font-sans);
   color: var(--text-dark);
-  background: radial-gradient(circle at top right, #eef5e7, var(--bg-cream) 45%), var(--bg-cream);
+  background: radial-gradient(circle at top right, #f0f7eb, var(--bg-cream) 45%), var(--bg-cream);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -59,8 +68,48 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   color: var(--primary-green-dark);
   margin-top: 0;
-  line-height: 1.25;
-  font-weight: 700;
+  line-height: 1.15;
+  font-weight: 900; /* Extra Bolder headings */
+}
+
+p {
+  color: var(--text-muted);
+  margin-top: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Base Button Overrides for More Vibrancy */
+button.primary, a.primary {
+  background: linear-gradient(135deg, var(--primary-green), var(--primary-green-light));
+  color: #fff;
+  border: 0;
+  box-shadow: 0 8px 24px rgba(13, 92, 43, 0.25);
+  font-weight: 800;
+  transition: all var(--transition-normal);
+  padding: 12px 24px !important; /* Larger padding */
+  font-size: 15px !important;
+}
+
+button.primary:hover, a.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(13, 92, 43, 0.35);
+  background: linear-gradient(135deg, var(--primary-green-light), var(--primary-green-vibrant));
+}
+
+button.ghost, a.ghost {
+  border: 2px solid var(--primary-green);
+  color: var(--primary-green);
+  font-weight: 800;
+}
+
+button.ghost:hover, a.ghost:hover {
+  background: var(--bg-green-soft);
+  color: var(--primary-green-dark);
+  border-color: var(--primary-green-dark);
 }
 
 p {

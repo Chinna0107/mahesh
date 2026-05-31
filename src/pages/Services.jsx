@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom'
 import { categories } from '../data/storeData'
+import { ScrollReveal } from '../components/Shared'
 import About from './About'
 import './Services.css'
 
 function Services() {
   return (
     <>
-      <section className="page-hero compact service-hero">
+      <ScrollReveal className="page-hero compact service-hero">
         <p className="eyebrow">Our Services & Products</p>
         <h1>We bring you the finest collection of farm-fresh dairy and traditional food products, processed with care and delivered with love.</h1>
-      </section>
-      <div className="service-grid">
+      </ScrollReveal>
+      <ScrollReveal className="service-grid" delay={0.1}>
         {categories.map((category) => (
           <article className="service-card" key={category.id}>
             <img src={category.image} alt={category.name} />
@@ -19,7 +20,7 @@ function Services() {
             <Link className="primary small" to={`/products?category=${category.id}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Show Products</Link>
           </article>
         ))}
-      </div>
+      </ScrollReveal>
       <About />
     </>
   )

@@ -1,10 +1,11 @@
-import { FaSeedling, FaBoxesPacking, FaTruck } from 'react-icons/fa6'
+import { FaSeedling, FaBoxesPacking, FaTruck, FaCheck, FaLeaf } from 'react-icons/fa6'
+import { ScrollReveal } from '../components/Shared'
 import './About.css'
 
 function About() {
   return (
     <>
-      <section className="about-hero-section">
+      <ScrollReveal className="about-hero-section">
         <div className="about-hero-copy">
           <p className="eyebrow">Bringing the Farm</p>
           <h1>Closer to You.</h1>
@@ -38,9 +39,9 @@ function About() {
         <div className="about-hero-image-wrapper">
           <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80" alt="Farmland" />
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="mission-vision-container">
+      <ScrollReveal className="mission-vision-container" delay={0.1}>
         <div className="mission-vision-header">
           <p className="eyebrow">Purity & Values</p>
           <h2>Purity, Freshness, and Healthy Living</h2>
@@ -60,9 +61,9 @@ function About() {
             <p>To revive and sustain traditional methods of food production that our ancestors followed. We strive to build a healthy, sustainable ecosystem where rural farmers are fairly supported and urban consumers enjoy pure nutrition without compromises.</p>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
 
-      <section className="about-highlights-section">
+      <ScrollReveal className="about-highlights-section" delay={0.2}>
         <div className="highlights-copy">
           <p className="eyebrow">Our Philosophy</p>
           <h2>We Believe Food Should Be Natural</h2>
@@ -79,14 +80,36 @@ function About() {
             </div>
           </div>
         </div>
-        
-        <div className="founder-card">
-          <h3>MAHESH</h3>
-          <p className="founder-title">Founder & CEO of MAHESH ECOMMERCE</p>
-          <p>An entrepreneur focused on building local businesses and providing fresh, high-quality food products to communities. Her vision for Mahesh is to bridge the gap between rural pure produce and urban healthy living.</p>
-          <button className="primary small" type="button">Connect with Founder</button>
-        </div>
-      </section>
+      </ScrollReveal>
+
+      <ScrollReveal className="about-founder-section" delay={0.3}>
+          <div className="founder-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Founder" />
+          </div>
+          <div className="founder-content">
+            <p className="eyebrow">Meet The Founder</p>
+            <h3>MAHESH</h3>
+            <p className="founder-title">Founder & CEO of MAHESH ECOMMERCE</p>
+            <p>An entrepreneur focused on building local businesses and providing fresh, high-quality food products to communities. His vision for Mahesh is to bridge the gap between rural pure produce and urban healthy living.</p>
+            
+            <div className="truth-elements">
+              <div className="truth-badge">
+                <FaSeedling className="truth-icon" />
+                <span>Truth in Purity</span>
+              </div>
+              <div className="truth-badge">
+                <FaCheck className="truth-icon" />
+                <span>Truth in Quality</span>
+              </div>
+              <div className="truth-badge">
+                <FaLeaf className="truth-icon" />
+                <span>Truth in Source</span>
+              </div>
+            </div>
+            
+            <button className="primary small" type="button" style={{ marginTop: '20px' }}>Connect with Founder</button>
+          </div>
+      </ScrollReveal>
     </>
   )
 }

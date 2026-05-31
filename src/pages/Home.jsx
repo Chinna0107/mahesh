@@ -49,7 +49,7 @@ const fadeUp = {
 
 const MotionLink = motion.create(Link)
 
-function Home({ products, addToCart, redirectInquiry, cartIds }) {
+function Home({ products, addToCart, redirectInquiry, cartIds, wishlist = [], toggleWishlist }) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -133,7 +133,7 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
 
       <SectionTitle title="Popular Products" text="Freshly picked customer favorites from Mahesh." />
       <motion.div
-        className="product-grid home-scroll-row"
+        className="home-scroll-row"
         initial="hidden"
         transition={{ staggerChildren: 0.06 }}
         variants={fadeUp}
@@ -141,12 +141,14 @@ function Home({ products, addToCart, redirectInquiry, cartIds }) {
         whileInView="visible"
       >
         <div className="home-scroll-row-inner">
-          {products.map((product) => (
+          {products.slice(0, 6).map((product) => (
             <ProductCard
               key={product.id}
               product={product}
               addToCart={addToCart}
               inCart={cartIds.includes(product.id)}
+              wishlist={wishlist}
+              toggleWishlist={toggleWishlist}
             />
           ))}
         </div>

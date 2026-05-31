@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FaArrowRight, FaPaperPlane, FaXmark, FaCheck } from 'react-icons/fa6'
+import { FaArrowRight, FaPaperPlane, FaXmark, FaCheck, FaHeart, FaRegHeart } from 'react-icons/fa6'
 import { slugify } from '../utils/slugify'
+import { ScrollReveal } from './ScrollReveal'
+
+export { ScrollReveal }
 
 export function SectionTitle({ title, text }) {
   return (
@@ -32,51 +35,107 @@ export function SplitSection({ eyebrow, title, text, image }) {
   )
 }
 
-export function ProductCard({ product, addToCart, inCart = false }) {
+export function ProductCard({ product, addToCart, inCart = false, wishlist = [], toggleWishlist, extraAction }) {
   const navigate = useNavigate()
+  const variants = Array.isArray(product.quantity_prices) ? product.quantity_prices : []
+  const [selectedVariant, setSelectedVariant] = useState(variants.length > 0 ? variants.find(v => v.price === product.price) || variants[0] : null)
 
   const handleCardClick = (e) => {
     e.preventDefault()
     navigate(`/product/${slugify(product.name_english || product.name)}`)
   }
 
+  const inWishlist = wishlist.some(item => item.id === product.id)
+
+  const handleWishlistClick = (e) => {
+    e.stopPropagation()
+    if (toggleWishlist) {
+      toggleWishlist(product)
+    }
+  }
+
+  const currentPrice = selectedVariant ? selectedVariant.price : product.price
+  const currentUnit = selectedVariant ? selectedVariant.quantity : product.unit
+
   return (
     <motion.article
       className="product-card reveal-card"
       initial={{ opacity: 0, y: 22 }}
       onClick={handleCardClick}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', position: 'relative' }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
       viewport={{ once: true, amount: 0.2 }}
       whileHover={{ y: -6 }}
       whileInView={{ opacity: 1, y: 0 }}
     >
+      <button 
+        className="wishlist-toggle-btn" 
+        onClick={handleWishlistClick} 
+        type="button" 
+        aria-label="Toggle wishlist"
+        style={{
+          position: 'absolute',
+          top: '12px',
+          right: '12px',
+          zIndex: 10,
+          background: 'rgba(255, 255, 255, 0.9)',
+          border: 'none',
+          borderRadius: '50%',
+          width: '32px',
+          height: '32px',
+          display: 'grid',
+          placeItems: 'center',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          color: inWishlist ? '#e63946' : 'var(--text-muted)',
+          cursor: 'pointer'
+        }}
+      >
+        {inWishlist ? <FaHeart /> : <FaRegHeart />}
+      </button>
+
       <div className="product-image-link" onClick={handleCardClick}>
         <img src={product.image} alt={product.name} />
       </div>
-      <span className="product-badge">{product.badge}</span>
-      <h3 className="product-title" onClick={handleCardClick}>{product.name}</h3>
-      <p>{product.description}</p>
-      <div className="product-meta">
-        <b>₹{product.price}</b>
-        <small>/{product.unit}</small>
-      </div>
-      <div className="product-card-actions" onClick={(e) => e.stopPropagation()}>
-        <button 
-          className="primary small" 
-          disabled={inCart} 
-          onClick={() => addToCart(product)} 
-          type="button"
-        >
-          {inCart ? 'Added' : 'Add'} {!inCart && <FaArrowRight />}
-        </button>
-        <button 
-          className="ghost small details-btn" 
-          onClick={() => navigate(`/product/${slugify(product.name_english || product.name)}`)} 
-          type="button"
-        >
-          Details
-        </button>
+      <div className="product-card-content">
+        <span className="product-badge">{product.badge}</span>
+        <h3 className="product-title" onClick={handleCardClick}>{product.name}</h3>
+        <p className="product-desc">{product.description}</p>
+        
+        {variants.length > 0 && (
+          <div className="quantity-selection" onClick={(e) => e.stopPropagation()} style={{ margin: '8px 0' }}>
+            <select 
+              value={selectedVariant?.quantity} 
+              onChange={(e) => setSelectedVariant(variants.find(v => v.quantity === e.target.value))}
+              style={{ padding: '6px 10px', borderRadius: '8px', fontSize: '12px', width: '100%', border: '1px solid var(--border-light)' }}
+            >
+              {variants.map((v, idx) => (
+                <option key={idx} value={v.quantity}>{v.quantity}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        <div className="product-meta">
+          <b>₹{currentPrice}</b>
+          <small>/{currentUnit}</small>
+        </div>
+        <div className="product-card-actions" onClick={(e) => e.stopPropagation()}>
+          <button 
+            className="primary small" 
+            onClick={() => addToCart(product, selectedVariant)} 
+            type="button"
+          >
+            Add
+          </button>
+          {extraAction}
+          <button 
+            className="ghost small details-btn" 
+            onClick={() => navigate(`/product/${slugify(product.name_english || product.name)}`)} 
+            type="button"
+          >
+            Details
+          </button>
+        </div>
       </div>
     </motion.article>
   )

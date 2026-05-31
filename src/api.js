@@ -57,8 +57,8 @@ export const api = {
     getSupportTickets: () =>
       request('/auth/support', { method: 'GET' }),
 
-    verifyEmail: (email, code) => 
-      request('/auth/verify-email', { method: 'POST', body: { email, code } }),
+    sendOtp: (email) =>
+      request('/auth/send-otp', { method: 'POST', body: { email } }),
   },
 
   // Products Endpoints

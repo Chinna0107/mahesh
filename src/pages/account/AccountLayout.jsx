@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, Navigate } from 'react-router-dom'
 import { FaUser, FaBoxOpen, FaLocationArrow, FaHeadset } from 'react-icons/fa6'
 import '../Account.css'
 
@@ -7,6 +7,10 @@ function AccountLayout() {
   const pathParts = location.pathname.split('/')
   const page = pathParts[pathParts.length - 1] === 'account' ? 'profile' : pathParts[pathParts.length - 1]
   const title = page.split('-').map((part) => part[0].toUpperCase() + part.slice(1)).join(' ')
+  const token = localStorage.getItem('mahesh_token')
+  if (!token) {
+    return <Navigate to="/signin" />
+  }
 
   return (
     <section className="account-page-layout">

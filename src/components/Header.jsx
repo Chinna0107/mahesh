@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { FaBars, FaXmark, FaBoxOpen, FaCartShopping, FaHeadset, FaHouse, FaLocationArrow, FaRightFromBracket, FaUser, FaPhone, FaEnvelope, FaWhatsapp, FaInstagram, FaBagShopping, FaLeaf, FaTruck } from 'react-icons/fa6'
+import { FaBars, FaXmark, FaBoxOpen, FaCartShopping, FaHeadset, FaHouse, FaLocationArrow, FaRightFromBracket, FaUser, FaPhone, FaEnvelope, FaWhatsapp, FaInstagram, FaBagShopping, FaLeaf, FaTruck, FaMagnifyingGlass } from 'react-icons/fa6'
 import logo from '../assets/logo.png'
 import { navItems, whatsAppNumber } from '../data/storeData'
+import { FaCircleQuestion } from 'react-icons/fa6'
 import './Header.css'
 
-function Header({ signedIn, user, cartCount, setSignedIn }) {
+function Header({ signedIn, user, cartCount, setSignedIn, searchQuery, setSearchQuery }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
+  const menuRef = useRef(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -22,23 +25,42 @@ function Header({ signedIn, user, cartCount, setSignedIn }) {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  // False touch: Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuOpen && menuRef.current && !menuRef.current.contains(event.target) && !event.target.closest('.menu-btn')) {
+        setMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [menuOpen])
+
   const handleSignOut = () => {
     localStorage.removeItem('mahesh_token')
     setSignedIn(false)
     navigate('/')
   }
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    setSearchOpen(false)
+    navigate('/products')
+  }
+
   return (
     <>
       <header className={`site-header${scrolled ? ' scrolled' : ''}`}>
-        <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)} type="button" aria-label="Toggle menu">
-          {menuOpen ? <FaXmark /> : <FaBars />}
-        </button>
+        <div className="header-left">
+          <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)} type="button" aria-label="Toggle menu">
+            {menuOpen ? <FaXmark /> : <FaBars />}
+          </button>
 
-        <Link className="brand" to="/" onClick={() => setMenuOpen(false)}>
-          <img src={logo} alt="Mahesh" />
-          <strong>Mahesh</strong>
-        </Link>
+          <Link className="brand" to="/" onClick={() => setMenuOpen(false)}>
+            <img src={logo} alt="Mahesh" />
+            <strong className="brand-name">Mahesh</strong>
+          </Link>
+        </div>
 
         {/* Desktop Navigation Links */}
         <nav className="desktop-navigation" aria-label="Main navigation">
@@ -54,6 +76,25 @@ function Header({ signedIn, user, cartCount, setSignedIn }) {
         </nav>
 
         <div className="header-actions">
+          <div className={`search-wrapper ${searchOpen ? 'open' : ''}`}>
+            {searchOpen ? (
+              <form className="search-form" onSubmit={handleSearchSubmit}>
+                <input 
+                  type="text" 
+                  placeholder="Search products..." 
+                  value={searchQuery} 
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                />
+                <button type="button" onClick={() => setSearchOpen(false)}><FaXmark /></button>
+              </form>
+            ) : (
+              <button className="icon-btn search-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
+                <FaMagnifyingGlass />
+              </button>
+            )}
+          </div>
+
           <Link className="icon-btn cart-action" to="/cart" onClick={() => setMenuOpen(false)} aria-label="Cart">
             <FaCartShopping />
             <span>Cart</span>
@@ -88,7 +129,7 @@ function Header({ signedIn, user, cartCount, setSignedIn }) {
 
       {/* Mobile Accordion Dropdown — slides down from header */}
       {menuOpen && (
-        <div className="mobile-menu-dropdown">
+        <div className="mobile-menu-dropdown" ref={menuRef}>
           {signedIn && (
             <div className="menu-drawer-user-card">
               <div className="menu-drawer-user-avatar">
@@ -108,24 +149,23 @@ function Header({ signedIn, user, cartCount, setSignedIn }) {
           )}
 
           <div className="mobile-menu-links">
-            {navItems.map((item) => {
+            {['services', 'about', 'contact', 'faq'].map((item) => {
               const itemIcons = {
-                home: <FaHouse style={{ marginRight: '12px' }} />,
-                products: <FaBagShopping style={{ marginRight: '12px' }} />,
                 services: <FaTruck style={{ marginRight: '12px' }} />,
                 about: <FaLeaf style={{ marginRight: '12px' }} />,
-                contact: <FaEnvelope style={{ marginRight: '12px' }} />
+                contact: <FaEnvelope style={{ marginRight: '12px' }} />,
+                faq: <FaCircleQuestion style={{ marginRight: '12px' }} />
               }
               return (
                 <NavLink
                   className={({ isActive }) => isActive ? 'active' : ''}
                   key={item}
-                  to={item === 'home' ? '/' : `/${item}`}
+                  to={`/${item}`}
                   onClick={() => setMenuOpen(false)}
                   style={{ display: 'flex', alignItems: 'center' }}
                 >
                   {itemIcons[item]}
-                  <span>{item === 'home' ? 'Home' : item.charAt(0).toUpperCase() + item.slice(1)}</span>
+                  <span>{item.toUpperCase() === 'FAQ' ? 'FAQs' : item.charAt(0).toUpperCase() + item.slice(1)}</span>
                 </NavLink>
               )
             })}

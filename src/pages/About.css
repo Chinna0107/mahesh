@@ -143,6 +143,91 @@
   margin-bottom: 24px;
 }
 
+.about-founder-section {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 20px;
+  background: var(--bg-cream-dark);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: 40px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--glass-border);
+  align-items: center;
+  padding: 20px;
+}
+
+.founder-image-wrapper {
+  padding: 20px;
+}
+
+.founder-image-wrapper img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  border: 4px solid #fff;
+}
+
+.founder-content {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.founder-content h3 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  color: var(--primary-green-dark);
+  margin-bottom: 4px;
+}
+
+.founder-title {
+  color: var(--accent-gold-dark);
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.founder-content p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.truth-elements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.truth-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.truth-icon {
+  color: var(--primary-green);
+  font-size: 18px;
+}
+
+.truth-badge span {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-dark);
+}
+
 .value-card h3 {
   font-family: var(--font-serif);
   font-size: 22px;
@@ -260,6 +345,7 @@
 @media (max-width: 900px) {
   .about-hero-section,
   .mission-vision-grid,
+  .about-founder-section,
   .about-highlights-section {
     grid-template-columns: 1fr;
     gap: 32px;

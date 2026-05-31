@@ -4,18 +4,79 @@ export const navItems = ['home', 'products', 'services', 'about', 'contact']
 
 export const categories = [
   { id: 'milk', name: 'Milk', image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=700&q=80' },
+  { id: 'fruits', name: 'Fruits', image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=700&q=80' },
   { id: 'flowers', name: 'Flowers', image: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=700&q=80' },
   { id: 'oils', name: 'Wood Pressed Oils', image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80' },
   { id: 'vegetables', name: 'Vegetables', image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=80' },
 ]
 
 export const productsSeed = [
-  { id: 1, name: 'A2 Farm Fresh Milk', category: 'milk', price: 78, unit: '1 litre', badge: 'Daily fresh', stock: 42, image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=700&q=80', description: 'Naturally sourced milk delivered chilled every morning from trusted local farms.' },
-  { id: 2, name: 'Desi Cow Ghee', category: 'milk', price: 690, unit: '500 ml', badge: 'Best seller', stock: 18, image: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=700&q=80', description: 'Slow-cooked traditional ghee with rich aroma and clean ingredients.' },
+  { 
+    id: 1, 
+    name: 'A2 Farm Fresh Milk', 
+    category: 'milk', 
+    price: 78, 
+    unit: '1 litre', 
+    badge: 'Daily fresh', 
+    stock: 42, 
+    image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=700&q=80', 
+    description: 'Naturally sourced milk delivered chilled every morning from trusted local farms.',
+    quantity_prices: [
+      { quantity: '500 ml', price: 40, mrp: 45 },
+      { quantity: '1 litre', price: 78, mrp: 85 },
+      { quantity: '2 litres', price: 150, mrp: 165 }
+    ]
+  },
+  { 
+    id: 2, 
+    name: 'Desi Cow Ghee', 
+    category: 'milk', 
+    price: 690, 
+    unit: '500 ml', 
+    badge: 'Best seller', 
+    stock: 18, 
+    image: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=700&q=80', 
+    description: 'Slow-cooked traditional ghee with rich aroma and clean ingredients.',
+    quantity_prices: [
+      { quantity: '250 ml', price: 360, mrp: 400 },
+      { quantity: '500 ml', price: 690, mrp: 750 },
+      { quantity: '1 litre', price: 1350, mrp: 1450 }
+    ]
+  },
   { id: 3, name: 'Marigold Puja Flowers', category: 'flowers', price: 120, unit: 'bundle', badge: 'Fresh cut', stock: 30, image: 'https://images.unsplash.com/photo-1606041008023-472dfb5e530f?auto=format&fit=crop&w=700&q=80', description: 'Bright, fresh flowers packed for homes, temples, and celebrations.' },
-  { id: 4, name: 'Wood Pressed Groundnut Oil', category: 'oils', price: 310, unit: '1 litre', badge: 'Cold pressed', stock: 26, image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80', description: 'Traditional wood pressed oil with full-bodied taste and no chemical refining.' },
+  { id: 7, name: 'Organic Alphonso Mangoes', category: 'fruits', price: 450, unit: '1 kg', badge: 'Seasonal', stock: 25, image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=700&q=80', description: 'Premium naturally ripened Alphonso mangoes from Ratnagiri farms.' },
+  { 
+    id: 4, 
+    name: 'Wood Pressed Groundnut Oil', 
+    category: 'oils', 
+    price: 310, 
+    unit: '1 litre', 
+    badge: 'Cold pressed', 
+    stock: 26, 
+    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80', 
+    description: 'Traditional wood pressed oil with full-bodied taste and no chemical refining.',
+    quantity_prices: [
+      { quantity: '1 litre', price: 310, mrp: 340 },
+      { quantity: '5 litres', price: 1520, mrp: 1650 }
+    ]
+  },
+  { id: 8, name: 'Farm Fresh Pomegranates', category: 'fruits', price: 180, unit: '1 kg', badge: 'Freshly picked', stock: 20, image: 'https://images.unsplash.com/photo-1615485240384-552e400a9ca1?auto=format&fit=crop&w=700&q=80', description: 'Large, juicy pomegranates packed with antioxidants and vitamin C.' },
   { id: 5, name: 'Seasonal Veggie Basket', category: 'vegetables', price: 280, unit: '3 kg', badge: 'Farm pack', stock: 35, image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=700&q=80', description: 'A practical mix of fresh vegetables selected for everyday home cooking.' },
-  { id: 6, name: 'Wood Pressed Sesame Oil', category: 'oils', price: 360, unit: '1 litre', badge: 'Pure', stock: 16, image: 'https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?auto=format&fit=crop&w=700&q=80', description: 'Deep, nutty oil made with slow pressing for authentic flavor.' },
+  { 
+    id: 6, 
+    name: 'Wood Pressed Sesame Oil', 
+    category: 'oils', 
+    price: 360, 
+    unit: '1 litre', 
+    badge: 'Pure', 
+    stock: 16, 
+    image: 'https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?auto=format&fit=crop&w=700&q=80', 
+    description: 'Deep, nutty oil made with slow pressing for authentic flavor.',
+    quantity_prices: [
+      { quantity: '1 litre', price: 360, mrp: 400 },
+      { quantity: '5 litres', price: 1750, mrp: 1900 }
+    ]
+  },
 ]
 
 export const orders = [
