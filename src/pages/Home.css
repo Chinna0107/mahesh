@@ -621,7 +621,7 @@
 
   .home-scroll-row .product-image-link {
     margin: 0 !important;
-    aspect-ratio: 1.1 / 1 !important;
+    aspect-ratio: 4 / 3 !important;
   }
 
   .home-scroll-row .product-card img {

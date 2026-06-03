@@ -32,7 +32,10 @@ main {
   main {
     width: 100%;
     margin: 0;
+    padding-left: 16px;
+    padding-right: 16px;
     padding-bottom: 120px !important; /* Extra padding to avoid bottom nav overlap */
+    box-sizing: border-box;
   }
 }
 
@@ -40,7 +43,6 @@ main {
   min-height: 60vh;
 }
 
-.site-header nav button,
 .icon-btn,
 .profile-dropdown button,
 footer button,
@@ -54,14 +56,6 @@ footer button,
   text-transform: capitalize;
 }
 
-.site-header nav button {
-  padding: 10px 12px;
-  border-radius: 14px;
-  font-weight: 700;
-}
-
-.site-header nav button.active,
-.site-header nav button:hover,
 .filters button.active,
 .filters button:hover,
 .admin-shell aside button.active,
@@ -117,49 +111,7 @@ footer button,
   background: #b66a22;
 }
 
-.menu-btn {
-  display: none;
-  border: 1px solid #d7e5cc;
-  border-radius: 14px;
-  background: #fff;
-  padding: 9px 12px;
-}
 
-.profile-menu {
-  position: relative;
-}
-
-.avatar {
-  width: 42px;
-  height: 42px;
-  border: 0;
-  border-radius: 50%;
-  color: #fff;
-  background: #9a5d1b;
-  font-weight: 900;
-}
-
-.profile-dropdown {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 10px);
-  display: none;
-  min-width: 190px;
-  padding: 8px;
-  border: 1px solid #dce8d1;
-  border-radius: 18px;
-  background: #fff;
-  box-shadow: 0 18px 40px rgba(31, 70, 38, 0.12);
-}
-
-.profile-menu:hover .profile-dropdown {
-  display: grid;
-}
-
-.profile-dropdown button {
-  padding: 10px;
-  text-align: left;
-}
 
 .hero-section,
 .split-section,
@@ -542,12 +494,6 @@ textarea {
   font-weight: 800;
 }
 
-.cart-list {
-  display: grid;
-  gap: 12px;
-}
-
-.cart-list article,
 .admin-row {
   display: grid;
   grid-template-columns: 74px 1fr 92px 100px;
@@ -557,55 +503,6 @@ textarea {
   border: 1px solid #dce8d1;
   border-radius: 20px;
   background: #fff;
-}
-
-.cart-list img {
-  width: 74px;
-  height: 74px;
-  object-fit: cover;
-  border-radius: 18px;
-}
-
-.cart-list div {
-  display: grid;
-  gap: 4px;
-}
-
-.cart-summary {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 18px;
-  margin-top: 18px;
-  padding: 18px;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.steps button {
-  min-height: 54px;
-  border: 1px solid #dce8d1;
-  border-radius: 18px;
-  color: #435642;
-  background: #fff;
-  font-weight: 900;
-}
-
-.steps button.active {
-  color: #fff;
-  background: #2e6b37;
-}
-
-.checkout-card {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 18px;
-  padding: 22px;
 }
 
 /* Wishlist Toggle Button on Product Card */
@@ -732,33 +629,12 @@ footer button {
 }
 
 @media (max-width: 900px) {
-  .menu-btn {
-    display: inline-flex;
-  }
-
-  .site-header {
-    flex-wrap: wrap;
-  }
-
-  .site-header nav {
-    order: 3;
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .site-header nav.open {
-    display: flex;
-  }
-
   .hero-section,
   .split-section,
   .subscription,
   .contact-band,
   .contact-page,
   .detail-page,
-  .page-layout,
   .admin-shell,
   .mission,
   footer {
@@ -766,10 +642,8 @@ footer button {
   }
 
   .product-grid,
-  .category-grid,
   .stat-grid,
-  .reviews,
-  .steps {
+  .reviews {
     grid-template-columns: 1fr;
   }
 
@@ -778,14 +652,7 @@ footer button {
     position: static;
   }
 
-  .cart-list article,
   .admin-row {
     grid-template-columns: 1fr;
-  }
-
-  .cart-summary {
-    justify-content: stretch;
-    flex-direction: column;
-    align-items: stretch;
   }
 }

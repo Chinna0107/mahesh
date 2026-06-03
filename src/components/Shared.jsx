@@ -125,15 +125,16 @@ export function ProductCard({ product, addToCart, inCart = false, wishlist = [],
             onClick={() => addToCart(product, selectedVariant)} 
             type="button"
           >
-            Add
+            Add to Cart
           </button>
           {extraAction}
           <button 
             className="ghost small details-btn" 
             onClick={() => navigate(`/product/${slugify(product.name_english || product.name)}`)} 
             type="button"
+            title="View Details"
           >
-            Details
+            ···
           </button>
         </div>
       </div>

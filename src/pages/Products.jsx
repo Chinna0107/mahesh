@@ -44,23 +44,40 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
 
   return (
     <>
+      {/* Mobile-only sticky category bar — sits outside the scrollable aside */}
+      <div className="mobile-cat-bar">
+        <div className="category-filter-strip">
+          <button className={selectedCategory === 'all' ? 'active' : ''} onClick={() => setSelectedCategory('all')} type="button">
+            <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=120&q=80" alt="" />
+            <span>All</span>
+          </button>
+          {categories.map((category) => (
+            <button className={selectedCategory === category.id ? 'active' : ''} key={category.id} onClick={() => setSelectedCategory(category.id)} type="button">
+              <img src={category.image} alt="" />
+              <span>{category.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <section className="page-layout">
-        {/* Removed ScrollReveal from filters to prevent sticky + transform conflicts on mobile */}
         <aside className="filters">
           <h2 className="desktop-only">Categories</h2>
-          <div className="category-filter-strip">
+
+          {/* Desktop category list */}
+          <div className="category-filter-strip desktop-only">
             <button className={selectedCategory === 'all' ? 'active' : ''} onClick={() => setSelectedCategory('all')} type="button">
               <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=120&q=80" alt="" />
-              <span>All Products</span>
+              All Products
             </button>
             {categories.map((category) => (
               <button className={selectedCategory === category.id ? 'active' : ''} key={category.id} onClick={() => setSelectedCategory(category.id)} type="button">
                 <img src={category.image} alt="" />
-                <span>{category.name}</span>
+                {category.name}
               </button>
             ))}
           </div>
-          
+
           <div className="filter-panel sort-panel desktop-only">
             <b>Sort By</b>
             <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
@@ -71,12 +88,13 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
             </select>
           </div>
 
+          {/* Mobile sort + tags — scrolls away with content */}
           <div className="filter-panel sort-panel mobile-only">
             <div className="sort-filter-strip">
               <button className={sortBy === 'default' ? 'active' : ''} onClick={() => setSortBy('default')} type="button">Default</button>
-              <button className={sortBy === 'price-asc' ? 'active' : ''} onClick={() => setSortBy('price-asc')} type="button">Price: Low to High</button>
-              <button className={sortBy === 'price-desc' ? 'active' : ''} onClick={() => setSortBy('price-desc')} type="button">Price: High to Low</button>
-              <button className={sortBy === 'popularity' ? 'active' : ''} onClick={() => setSortBy('popularity')} type="button">Popularity</button>
+              <button className={sortBy === 'price-asc' ? 'active' : ''} onClick={() => setSortBy('price-asc')} type="button">Price ↑</button>
+              <button className={sortBy === 'price-desc' ? 'active' : ''} onClick={() => setSortBy('price-desc')} type="button">Price ↓</button>
+              <button className={sortBy === 'popularity' ? 'active' : ''} onClick={() => setSortBy('popularity')} type="button">Popular</button>
             </div>
           </div>
 
@@ -87,7 +105,7 @@ function Products({ products, selectedCategory, setSelectedCategory, addToCart, 
               <button className={activeTag === 'popular' ? 'active' : ''} onClick={() => setActiveTag('popular')} type="button">Popular</button>
               <button className={activeTag === 'new' ? 'active' : ''} onClick={() => setActiveTag('new')} type="button">New Arrivals</button>
               <button className={activeTag === 'daily' ? 'active' : ''} onClick={() => setActiveTag('daily')} type="button">Daily Delivery</button>
-              <button className={activeTag === 'organic' ? 'active' : ''} onClick={() => setActiveTag('organic')} type="button">Organic / Traditional</button>
+              <button className={activeTag === 'organic' ? 'active' : ''} onClick={() => setActiveTag('organic')} type="button">Organic</button>
             </div>
           </div>
         </aside>
