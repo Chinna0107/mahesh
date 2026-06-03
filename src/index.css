@@ -64,6 +64,11 @@ body {
   min-height: 100vh;
 }
 
+main {
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   color: var(--primary-green-dark);

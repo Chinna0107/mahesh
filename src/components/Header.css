@@ -419,7 +419,7 @@
 /* ── Mobile ── */
 @media (max-width: 900px) {
   .menu-btn {
-    display: none !important;
+    display: inline-flex !important;
   }
 
   .brand {

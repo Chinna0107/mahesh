@@ -5,9 +5,8 @@
 }
 
 /* Page structural main container */
+/* Moved global main styling to index.css to avoid overriding mobile media queries */
 main {
-  width: min(1280px, calc(100% - 48px));
-  margin: 0 auto;
   min-height: calc(100vh - 200px);
   padding-bottom: 60px;
 }
