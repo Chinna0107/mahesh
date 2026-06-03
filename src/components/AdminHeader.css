@@ -48,13 +48,24 @@
   color: var(--accent-gold);
 }
 
-/* Admin Nav */
+/* Admin Nav - Always visible on desktop */
 .admin-site-header nav {
   display: flex;
   align-items: center;
   gap: 4px;
   flex: 1;
   justify-content: center;
+}
+
+@media (min-width: 901px) {
+  .admin-site-header nav {
+    display: flex !important;
+  }
+  
+  .admin-site-header .drawer-header,
+  .admin-site-header .drawer-footer {
+    display: none !important;
+  }
 }
 
 .admin-site-header nav a {

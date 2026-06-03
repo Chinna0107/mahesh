@@ -142,56 +142,7 @@
   border-color: var(--primary-green);
 }
 
-/* ── Mobile ── */
-@media (max-width: 900px) {
-  .menu-btn {
-    display: flex !important;
-  }
-
-  .header-left {
-    gap: 12px;
-  }
-
-  .brand {
-    font-size: 18px;
-    gap: 8px;
-    margin: 0;
-  }
-
-  .brand img {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    box-shadow:
-      0 8px 18px rgba(28, 78, 37, 0.16),
-      0 0 0 4px rgba(237, 244, 231, 0.96);
-  }
-
-  .brand-name {
-    font-size: 20px;
-  }
-
-  .search-wrapper.open {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: #fff;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-  }
-
-  .search-wrapper.open .search-form {
-    width: 100%;
-    animation: none;
-  }
-}
-
-
-/* Desktop Nav */
+/* Desktop Nav - Always visible on desktop */
 .desktop-navigation {
   display: flex;
   align-items: center;
@@ -391,26 +342,6 @@
   background: var(--bg-cream-dark);
 }
 
-/* Mobile hamburger */
-.menu-btn {
-  display: none;
-  border: 1.5px solid var(--border-light);
-  border-radius: var(--radius-sm);
-  background: #fff;
-  padding: 9px 11px;
-  color: var(--primary-green);
-  font-size: 16px;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.menu-btn:hover {
-  background: var(--bg-green-soft);
-  border-color: var(--primary-green);
-}
-
 /* Drawer elements hidden on desktop */
 .mobile-menu-dropdown {
   display: none !important;
@@ -422,19 +353,45 @@
     display: inline-flex !important;
   }
 
+  .header-left {
+    gap: 12px;
+  }
+
   .brand {
     font-size: 18px;
-    gap: 10px;
-    margin: 0 auto;
+    gap: 8px;
+    margin: 0;
   }
 
   .brand img {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
     box-shadow:
       0 8px 18px rgba(28, 78, 37, 0.16),
-      0 0 0 5px rgba(237, 244, 231, 0.96);
+      0 0 0 4px rgba(237, 244, 231, 0.96);
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .search-wrapper.open {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  .search-wrapper.open .search-form {
+    width: 100%;
+    animation: none;
   }
 
   .site-header {
@@ -782,3 +739,4 @@
     font-size: 20px;
     font-weight: 900 !important;
   }
+}
