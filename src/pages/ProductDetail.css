@@ -42,6 +42,16 @@
   margin-bottom: 48px;
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .detail-page-new {
+    gap: 32px;
+  }
+  
+  .info-section {
+    padding: 24px;
+  }
+}
+
 /* Left Column: Image Section */
 .gallery-section {
   display: flex;

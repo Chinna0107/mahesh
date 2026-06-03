@@ -147,6 +147,13 @@
   margin-bottom: 40px;
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
 .category-card {
   position: relative;
   height: 200px;
@@ -209,6 +216,13 @@
   gap: 40px;
   align-items: center;
   padding: 60px 0;
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .journey-showcase {
+    gap: 24px;
+    padding: 40px 0;
+  }
 }
 
 .journey-copy h2 {
@@ -320,6 +334,13 @@
   align-items: center;
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .subscription {
+    padding: 32px;
+    gap: 24px;
+  }
+}
+
 .subscription::before {
   content: '';
   position: absolute;
@@ -369,6 +390,13 @@
   grid-template-columns: 1.2fr 0.8fr;
   gap: 40px;
   align-items: center;
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .contact-band {
+    padding: 32px;
+    gap: 24px;
+  }
 }
 
 .contact-band h2 {

@@ -9,6 +9,18 @@
   min-height: calc(100vh - 120px);
 }
 
+@media (min-width: 992px) and (max-width: 1300px) {
+  .admin-shell {
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+  }
+  
+  .admin-sidebar {
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
 /* Sidebar Styling */
 .admin-sidebar {
   position: sticky;

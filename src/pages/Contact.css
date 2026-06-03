@@ -6,6 +6,16 @@
   padding: 60px 0;
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .contact-page {
+    gap: 32px;
+  }
+  
+  .contact-info-card, .inquiry-form {
+    padding: 24px;
+  }
+}
+
 .contact-details {
   position: sticky;
   top: 104px;
@@ -152,6 +162,12 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .contact-faq-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .contact-faq-card {

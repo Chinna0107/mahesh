@@ -5,6 +5,13 @@
   padding: 40px 0;
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .page-layout {
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+  }
+}
+
 .filters {
   position: sticky;
   top: 114px; /* Desktop Header + Ticker */

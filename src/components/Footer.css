@@ -11,6 +11,13 @@
   background: var(--primary-green-dark);
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .site-footer {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 32px 24px;
+  }
+}
+
 .site-footer::before {
   content: '';
   position: absolute;

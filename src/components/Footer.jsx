@@ -43,7 +43,7 @@ function Footer() {
         <p><FaPhone /> +91 7406136807</p>
         <p><FaLocationDot /> Hyderabad, Telangana</p>
       </div>
-      <div className="footer-bottom">Freshness delivered daily. Built for future backend integration.</div>
+      <div className="footer-bottom">Freshness delivered daily. Made with ❤️ in Andhra and Telangana</div>
     </ScrollReveal>
   )
 }

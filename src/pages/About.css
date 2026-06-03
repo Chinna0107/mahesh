@@ -7,6 +7,21 @@
   padding: 60px 0;
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .about-hero-section {
+    gap: 32px;
+    padding: 40px 0;
+  }
+  
+  .mission-vision-grid {
+    gap: 24px;
+  }
+  
+  .value-card {
+    padding: 32px;
+  }
+}
+
 .about-hero-copy {
   display: flex;
   flex-direction: column;

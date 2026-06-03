@@ -40,6 +40,17 @@
   align-items: start;
 }
 
+@media (min-width: 901px) and (max-width: 1200px) {
+  .cart-layout {
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+  }
+  
+  .cart-summary-panel {
+    padding: 20px;
+  }
+}
+
 /* Items */
 .cart-items {
   display: grid;
